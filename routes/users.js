@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
 const userModel = require('../models/user');
-var passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy;
+const passport = require('passport');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
+  if(!req.user) {
+    res.send('No auth');
+  }
   userModel.find().then(data => res.send(data));
 });
 
@@ -17,8 +19,6 @@ router.post('/', (req, res, next) => {
     .catch(err => res.send({ status: 'failed', message: err }));
 });
 
-router.post('/login', (req, res, next) => {
-
-});
+router.post('/login', passport.authenticate('local', { successRedirect: '/users/' }));
 
 module.exports = router;
