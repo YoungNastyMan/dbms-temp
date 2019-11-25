@@ -2,14 +2,18 @@
   "name": "bookstore",
   "version": "1.0.0",
   "description": "A simple online bookstore",
-  "main": "index.js",
   "repository": "git@github.com:YoungNastyMan/dbms-temp.git",
   "author": "Anand Hegde <hegde.an@husky.neu.edu>",
   "license": "MIT",
-  "dependencies": {
-    "express": "^4.17.1"
+  "scripts": {
+    "start": "node ./bin/www"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.1"
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1"
   }
 }
