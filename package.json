@@ -1,0 +1,9 @@
+{
+  "name": "bookstore",
+  "version": "1.0.0",
+  "description": "A simple online bookstore",
+  "main": "index.js",
+  "repository": "git@github.com:YoungNastyMan/dbms-temp.git",
+  "author": "Anand Hegde <hegde.an@husky.neu.edu>",
+  "license": "MIT"
+}
