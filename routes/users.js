@@ -11,8 +11,6 @@ router.get('/', function (req, res, next) {
   userModel.findById(req.user._id).then(data => res.send(data));
 });
 
-
-
 router.post('/register', (req, res, next) => {
   //Do some validation here.
   const newUser = new userModel(req.body.user);
@@ -22,7 +20,6 @@ router.post('/register', (req, res, next) => {
 });
 
 router.post('/useradded', passport.authenticate('local', { successRedirect: '/users/useradded' }));
-router.post('/login', passport.authenticate('local', { successRedirect: '/loginsuccess' }));
 
 
 module.exports = router;
