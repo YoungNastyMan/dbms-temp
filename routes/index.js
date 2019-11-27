@@ -4,6 +4,7 @@ const passport = require('passport');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  console.log("here");
   if(!req.user) {
     res.redirect('/login');
   }

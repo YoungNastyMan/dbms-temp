@@ -35,6 +35,7 @@ const userModel = require('./models/user');
 //configure auth here.
 passport.use(new localStrategy(
   function (username, password, done) {
+    console.log("here");
     userModel.findOne({ username: username }, function (err, user) {
       if (err) { return done(err); }
       if (!user) {
