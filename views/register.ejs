@@ -1,0 +1,31 @@
+<html>
+  <div class="container">
+    <h1>Registration Page</h1>
+    <p class="lead">Enter details here.</p><br/>
+    <form role="form" action="/users/useradded" method="post" style="max-width: 300px">
+      <div class="form-group">
+        <input class="form-control" type="text" name="first_name" placeholder="Enter First Name"/>
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="last_name" placeholder="Enter Last Name"/>
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="username" placeholder="Enter Username"/>
+        <p></p>
+      </div>
+    </form>
+    <div class="form-group"></div>
+    <label>
+      Select User Type             
+      <select id="myList">
+        <option value="admin">admin</option>               
+        <option value="buyer">buyer</option>               
+        <option value="seller">seller</option>
+      </select>
+      <div class="form-group">
+        <input class="form-control" type="password" name="password" placeholder="Password"/>
+      </div>
+      <button class="btn btn-default" type="submit">Submit</button>
+    </label>
+  </div>
+</html>
