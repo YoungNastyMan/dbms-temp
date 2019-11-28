@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
 const AdminSchema = mongoose.Schema({
-   admin_key: String
+   adminKey: String
 });
 module.exports = AdminSchema;

@@ -22,11 +22,28 @@ router.post('/register', (req, res, next) => {
 });
 
 //update user prfoile
-router.put('/updateUser', (req, res, next)=>{
-  const updatedUser = new userModel(req.body.user);
-  updatedUser.findOneAndUpdate()
+router.put('/updateUser',  (req, res, next)=>{
+  console.log("hi");
+  console.log(req.body.user);
+   userModel.updateOne(
+    { username: req.body.user.username},
+    { $set:
+       {
+         first_name: req.body.user.first_name,
+         last_name: req.body.user.last_name,
+         password: req.body.user.password,
+         address: {
+           address : req.body.user.address.address,
+           pincode : req.body.user.address.pincode,
+           city  : req.body.user.address.city,
+           state : req.body.user.address.state,
+           country: req.body.user.address.country
+         }
 
-
+       }
+    }
+ ) .then(() => res.send('user updated'))
+ .catch(err => res.send({ status: 'failed to update', message: err }));
 
 })
 
