@@ -1,27 +1,47 @@
 var express = require('express');
 var router = express.Router();
-var querystring = require('querystring');
 const userModel = require('../models/user');
-const passport = require('passport');
-var request = require('request');
+
 /* GET user listing. */
-router.get('/', function (req, res, next) {
-  console.log("here");
+router.get('/', function (req, res) {
   if (!req.user) {
     res.send('No auth');
   }
   userModel.findById(req.user._id).then(data => res.send(data));
 });
 
-//register new user
-router.post('/register', (req, res, next) => {
+router.post('/', (req, res) => {
   //Do some validation here.
-  console.log("Users");
-  
-  console.log(req.body.user);
+  //DO SOME VALIDATION HERE.
+  //DO SOME VALIDATION HERE.
+  //DO SOME VALIDATION HERE.
+  //DO SOME VALIDATION HERE.
+  //DO SOME VALIDATION HERE.
+  //DO SOME VALIDATION HERE.
+  //DO SOME VALIDATION HERE.
+  //DO SOME VALIDATION HERE.
+  //DO SOME VALIDATION HERE.
+  //DO SOME VALIDATION HERE.
+  //DO SOME VALIDATION HERE.
+  //DO SOME VALIDATION HERE.
+  //DO SOME VALIDATION HERE.
+  //DO SOME VALIDATION HERE.
+  //DO SOME VALIDATION HERE.
 
+  //Modifying body which is actually not a good idea, but I don't care. Actually nevermind I will construct it.
+  let user = req.body;
+  user.address = {
+    'address': user.address,
+    'pincode': user.pincode,
+    'city': user.city,
+    'state': user.state,
+    'country': user.country
+  };
+  user.seller = {
+    'sellerAgreement': true
+  }
 
-  const newUser = new userModel(req.body.user);
+  const newUser = new userModel(user);
   newUser.save()
     .then(() => res.send('user saved'))
     .catch(err => res.send({ status: 'failed', message: err }));
@@ -53,44 +73,6 @@ router.put('/updateUser', (req, res, next) => {
     .catch(err => res.send({ status: 'failed to update', message: err }));
 
 })
-
-//temp register
-router.post('/register1', (req, res, next) => {
-  console.log("Redirect in Users");
-  console.log(req.body.username);
-  var j = {
-    'user': {
-      'first_name': req.body.first_name,
-      'last_name': req.body.first_name,
-      'username': req.body.last_name,
-      'password': req.body.username,
-      'usertype': req.body.usertype
-
-    }
-  }
-  console.log(j);
-
-  request.post({
-    url: "http://localhost:3000/users/register",
-
-    json: j
-  }, function (error, response, body) {
-    if (!error && response.statusCode === 200) {
-      console.log(body)
-    }
-    else {
-
-      console.log("error: " + response)
-      console.log("response.statusCode: " + response.statusCode)
-      console.log("response.statusText: " + response.statusText)
-    }
-  }
-  )
-})
-
-router.post('/useradded', passport.authenticate('local', { successRedirect: '/users/useradded' }));
-
-
 
 module.exports = router;
 
