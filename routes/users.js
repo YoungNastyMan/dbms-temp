@@ -10,25 +10,8 @@ router.get('/', function (req, res) {
   userModel.findById(req.user._id).then(data => res.send(data));
 });
 
-router.post('/', (req, res) => {
-  //Do some validation here.
-  //DO SOME VALIDATION HERE.
-  //DO SOME VALIDATION HERE.
-  //DO SOME VALIDATION HERE.
-  //DO SOME VALIDATION HERE.
-  //DO SOME VALIDATION HERE.
-  //DO SOME VALIDATION HERE.
-  //DO SOME VALIDATION HERE.
-  //DO SOME VALIDATION HERE.
-  //DO SOME VALIDATION HERE.
-  //DO SOME VALIDATION HERE.
-  //DO SOME VALIDATION HERE.
-  //DO SOME VALIDATION HERE.
-  //DO SOME VALIDATION HERE.
-  //DO SOME VALIDATION HERE.
-  //DO SOME VALIDATION HERE.
-
-  //Modifying body which is actually not a good idea, but I don't care. Actually nevermind I will construct it.
+router.post('/register', (req, res) => {
+  
   let user = req.body;
   user.address = {
     'address': user.address,
