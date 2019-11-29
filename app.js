@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 var cookieParser = require('cookie-parser');
+var methodOverride = require('method-override');
+var bodyParser = require('body-parser');
 
 
 var indexRouter = require('./routes/index');

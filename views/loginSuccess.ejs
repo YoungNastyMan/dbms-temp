@@ -1,5 +1,13 @@
 <%- include('header'); -%>  
+<%- include('logout'); -%>
 <h1> Login Successful </h1>
 
   <h2>Welcome <%= user.first_name %></h2>
 
+<a href="\updateUser">Update Profile</a>
+<br>
+<br>
+  <% if(user.usertype === 'admin') { %>
+    <a href="\crudUsers">Update / Delete Buyers And Sellers</a>
+  <% }
+  %>

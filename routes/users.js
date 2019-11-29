@@ -11,7 +11,6 @@ router.get('/', function (req, res) {
 });
 
 router.post('/register', (req, res) => {
-  
   let user = req.body;
   user.address = {
     'address': user.address,
@@ -20,34 +19,54 @@ router.post('/register', (req, res) => {
     'state': user.state,
     'country': user.country
   };
-  user.seller = {
-    'sellerAgreement': true
+  if (req.body.usertype == "seller") {
+    user.usertype = "seller";
+    user.seller = {
+      'sellerAgreement': true
+    }
+  }else if (req.body.usertype == "buyer") {
+    user.usertype = "buyer";
+    user.buyer = {
+      'buyerAgreement': true
+    }
   }
 
-  const newUser = new userModel(user);
-  newUser.save()
-    .then(() => res.send('user saved'))
-    .catch(err => res.send({ status: 'failed', message: err }));
-});
+    const newUser = new userModel(user);
+    newUser.save()
+      .then(() => res.send('user saved'))
+      .catch(err => res.send({ status: 'failed', message: err }));
+  });
 
-//update user prfoile
+//update user profile via post
+// router.put('/updateUser', (req, res, next) => {
+//   console.log("h1 1");
+//   if (req.params.id) {
+//     return handlePut(req, res);
+//   }
+
+//   // don't forget to handle me!
+// });
+
+//update user profile
 router.put('/updateUser', (req, res, next) => {
   console.log("hi");
-  console.log(req.body.user);
+  //console.log(req.body.user);
+  console.log(req.body.first_name);
+  console.log(req.body.username);
   userModel.updateOne(
-    { username: req.body.user.username },
+    { username: req.body.username },
     {
       $set:
       {
-        first_name: req.body.user.first_name,
-        last_name: req.body.user.last_name,
-        password: req.body.user.password,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        password: req.body.password,
         address: {
-          address: req.body.user.address.address,
-          pincode: req.body.user.address.pincode,
-          city: req.body.user.address.city,
-          state: req.body.user.address.state,
-          country: req.body.user.address.country
+          address: req.body.address,
+          pincode: req.body.pincode,
+          city: req.body.city,
+          state: req.body.state,
+          country: req.body.country
         }
 
       }
