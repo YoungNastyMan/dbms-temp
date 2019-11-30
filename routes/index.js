@@ -3,7 +3,7 @@ var router = express.Router();
 const passport = require('passport');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
-
+var app = express();
 router.use(bodyParser.urlencoded({extended: true}))
 router.use(methodOverride(function(req,res){
   if(req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -21,6 +21,11 @@ router.get('/', function(req, res, next) {
     res.redirect('/login');
   }
   res.render('home');
+});
+
+/*Get search page */
+router.get('/search', function(req, res, next) {
+  res.render('search', { title: 'Express' });
 });
 
 /* GET registration page. */

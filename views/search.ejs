@@ -1,0 +1,44 @@
+<%- include('header'); -%>
+<div class="container">
+    <h1>Book Search</h1>
+    <p class="lead">Search books.</p><br />
+    <form id = "myform">
+        <div class="input-field">
+            <input type="search" id="books"/>
+            <label for="search">Search Books</label>
+        </div>
+        <button class="btn blue">Search</button>
+    </form>
+</div>
+<div id ="result">
+</div>
+
+
+<script>
+(function ($) {
+$(document).ready(function() {
+var search;
+
+
+    $("#myform").submit(function() {
+          search = $("#books").val();
+          alert(search);
+           $.get('https://www.googleapis.com/books/v1/volumes?q=' +search,function(response){
+              console.log(response);
+            })
+         // alert(search);
+          })
+          
+         
+          
+            //  alert( "success" );
+    //  for(i=0;i<response.items.length;i++) {
+    //                title = $('<h5 class = "center-align white-text">'+ response.items[i].volumeInfo.title + '</h5>');
+    //           }
+    
+    
+    
+})
+})(jQuery);
+</script>
+<%- include('footer'); -%>

@@ -1,4 +1,5 @@
 var express = require('express');
+var axios = require('axios');
 var router = express.Router();
 const userModel = require('../models/user');
 
@@ -31,10 +32,25 @@ router.post('/register', (req, res) => {
     }
   }
 
-    const newUser = new userModel(user);
-    newUser.save()
-      .then(() => res.send('user saved'))
-      .catch(err => res.send({ status: 'failed', message: err }));
+    // const newUser = new userModel(user);
+
+    console.log(user);
+
+    axios.post('http://localhost:5000/user/register',user)
+    .then(() => {
+      res.send('user saved');
+    }, (error) => {
+      console.log(error);
+    });
+
+
+    // console.log(newUser);
+    
+    // newUser.save()
+    //   .then(() => res.send('user saved'))
+    //   .catch(err => res.send({ status: 'failed', message: err }));
+
+
   });
 
 //update user profile via post
