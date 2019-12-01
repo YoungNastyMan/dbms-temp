@@ -2,7 +2,7 @@ var express = require('express');
 var axios = require('axios');
 var router = express.Router();
 const userModel = require('../models/user');
-
+var assert = require('assert');
 /* GET user listing. */
 router.get('/', function (req, res) {
   if (!req.user) {
@@ -25,43 +25,31 @@ router.post('/register', (req, res) => {
     user.seller = {
       'sellerAgreement': true
     }
-  }else if (req.body.usertype == "buyer") {
+  } else if (req.body.usertype == "buyer") {
     user.usertype = "buyer";
     user.buyer = {
       'buyerAgreement': true
     }
   }
 
-    // const newUser = new userModel(user);
+  // const newUser = new userModel(user);
 
-    console.log(user);
+  console.log(user);
 
-    axios.post('http://localhost:5000/user/register',user)
-    .then(() => {
-      res.send('user saved');
-    }, (error) => {
-      console.log(error);
-    });
+  axios.post('http://localhost:5000/user/register', user)
+    .then(() => res.send('user saved'))
+    .catch(err => res.send({ status: 'failed', message: err }));
 
 
-    // console.log(newUser);
-    
-    // newUser.save()
-    //   .then(() => res.send('user saved'))
-    //   .catch(err => res.send({ status: 'failed', message: err }));
+  // console.log(newUser);
+
+  // newUser.save()
+  //   .then(() => res.send('user saved'))
+  //   .catch(err => res.send({ status: 'failed', message: err }));
 
 
-  });
+});
 
-//update user profile via post
-// router.put('/updateUser', (req, res, next) => {
-//   console.log("h1 1");
-//   if (req.params.id) {
-//     return handlePut(req, res);
-//   }
-
-//   // don't forget to handle me!
-// });
 
 //update user profile
 router.put('/updateUser', (req, res, next) => {
@@ -69,27 +57,69 @@ router.put('/updateUser', (req, res, next) => {
   //console.log(req.body.user);
   console.log(req.body.first_name);
   console.log(req.body.username);
-  userModel.updateOne(
-    { username: req.body.username },
-    {
-      $set:
-      {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        password: req.body.password,
-        address: {
-          address: req.body.address,
-          pincode: req.body.pincode,
-          city: req.body.city,
-          state: req.body.state,
-          country: req.body.country
-        }
-
-      }
+  let user = req.body;
+  // user.address = {
+  //   'address': user.address,
+  //   'pincode': user.pincode,
+  //   'city': user.city,
+  //   'state': user.state,
+  //   'country': user.country
+  // };
+  user = {
+    'username': req.body.username,
+    'first_name': req.body.first_name,
+    'last_name': req.body.last_name,
+    'password': req.body.password,
+    'address': {
+      'address': req.body.address,
+      'pincode': req.body.pincode,
+      'city': req.body.city,
+      'state': req.body.state,
+      'country': req.body.country
     }
-  ).then(() => res.send('user updated'))
-    .catch(err => res.send({ status: 'failed to update', message: err }));
 
+  }
+
+  console.log(user);
+
+  axios.put('http://localhost:5000/user/updateUser', user)
+    .then(() => res.send('user updated'))
+    .catch(err => res.send({ status: 'failed', message: err }));
+
+})
+
+router.get('/get-data', (req, res, next) => {
+  
+  console.log('Get Data');
+  var resultArray = [];
+  var cursor;
+  axios.get('http://localhost:5000/user/')
+  .then(function (res) {
+    cursor = res.data;
+    console.log(cursor);
+    cursor.forEach(function(doc,err) {
+        // assert(null,err);
+        console.log('doc');
+          console.log(doc.username);
+        resultArray.push(doc);
+    }) })
+    .then (
+    function() {
+    console.log("SS", resultArray[3].first_name);
+    res.render('crudUsersTest', {user : resultArray});
+      });
+    
+    //  function() {
+    //     console.log("Result Array");
+    //     console.log(resultArray[4].username);
+    //     res.render('\crudUsersTest', {items : resultArray});
+    // });
+  
+
+  
+  
+
+  //console.log(cursor);
 })
 
 module.exports = router;

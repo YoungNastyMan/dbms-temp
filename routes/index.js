@@ -61,6 +61,12 @@ router.get('/updateUser', (req, res) => res.render('updateUser'));
 //CRUD Users page
 router.get('/crudUsers', (req, res) => res.render('crudUsers'));
 
+//CRUD Users test page
+router.get('/crudUsersTest', (req, res) => res.render('crudUsersTest',{ user: req.user }));
+
+//Update/ Edit Users page
+router.get('/update-edit-buyer-seller', (req, res) => res.render('updateEditBuyerSeller'));
+
 router.post('/logout', (req, res) => {
   req.logout();
   res.redirect('/login');

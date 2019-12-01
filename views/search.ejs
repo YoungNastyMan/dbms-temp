@@ -1,4 +1,5 @@
 <%- include('header'); -%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <div class="container">
     <h1>Book Search</h1>
     <p class="lead">Search books.</p><br />
@@ -7,7 +8,7 @@
             <input type="search" id="books"/>
             <label for="search">Search Books</label>
         </div>
-        <button class="btn blue">Search</button>
+        <button id= "sub" class="btn blue" onclick="myFucn()">Search</button>
     </form>
 </div>
 <div id ="result">
@@ -15,30 +16,110 @@
 
 
 <script>
+
+
 (function ($) {
-$(document).ready(function() {
-var search;
+$.when($(document).ready(function(){
+var search ;
+var search1 = 'php';
+var flag = 0;
 
 
-    $("#myform").submit(function() {
-          search = $("#books").val();
-          alert(search);
-           $.get('https://www.googleapis.com/books/v1/volumes?q=' +search,function(response){
-              console.log(response);
-            })
+
+
+
+
+
+//    $.when( $("#myform").submit(function() {
+//           search = $("#books").val();
+//           console.log(search+ '1');
+//           return search;
+//     })).then( search => $.get('https://www.googleapis.com/books/v1/volumes?q=' +search,function(response){
+//               console.log('FF' + search);
+//               console.log(response);
+//               console.log('HI 0');
+//             }));
+
+
+
+// $.get('https://www.googleapis.com/books/v1/volumes?q=' +search1,function(response){
+//               console.log(response);
+//               console.log('HI 0');
+//             });
+
+
+//     $("#myform").submit(function() {
+//           search = $("#books").val();
+//           alert(search);
+//           if(search !== '') {
+//             console.log('HI 1');
+//             console.log(search);
+//             $.get('https://www.googleapis.com/books/v1/volumes?q=' +search,function(response){
+//               console.log(response);
+//               console.log('HI 1');
+//             });
+//           }
+//         //   multiply();
+//         //   return search;
+//           })
+
+//     function multiply() {
+//      console.log('HI 2');
+//      console.log(search);
+//      $.get('https://www.googleapis.com/books/v1/volumes?q=' +search,function(response){
+//               console.log(response);
+              
+//             });
+    
+//     }      
+        //   .then(
+        //     );
          // alert(search);
-          })
-          
+        
+
          
           
             //  alert( "success" );
     //  for(i=0;i<response.items.length;i++) {
     //                title = $('<h5 class = "center-align white-text">'+ response.items[i].volumeInfo.title + '</h5>');
     //           }
+      
     
-    
-    
-})
+}))
+.then(
+    function myFucn(){
+      search = $("#books").val();
+        console.log("search",search);
+            let url = `https://www.googleapis.com/books/v1/volumes?q=${search}`;
+            console.log("url: ", url);
+            $.get(url,function(response){
+              console.log(response);
+            });
+  }
+)
+
+
 })(jQuery);
+
+
+    // $("#myform").submit(async()=> {
+
+    //         search = $("#books").val();
+    //         console.log("search",search);
+    //         let url = `https://www.googleapis.com/books/v1/volumes?q=${search}`;
+    //         console.log("url: ", url);
+    //     let res = await $.get(url);
+    //     console.log(res);
+
+
+    // });
+
+
+// (function ($) {
+  
+//   })(jQuery);
+
+
+
 </script>
 <%- include('footer'); -%>
