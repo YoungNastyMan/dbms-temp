@@ -39,8 +39,7 @@ router.post('/register', (req, res) => {
   axios.post('http://localhost:5000/user/register', user)
     .then(() => res.send('user saved'))
     .catch(err => res.send({ status: 'failed', message: err }));
-
-
+    
   // console.log(newUser);
 
   // newUser.save()
@@ -83,8 +82,9 @@ router.put('/updateUser', (req, res, next) => {
   console.log(user);
 
   axios.put('http://localhost:5000/user/updateUser', user)
-    .then(() => res.send('user updated'))
-    .catch(err => res.send({ status: 'failed', message: err }));
+    .then(() => res.jsonp('user updated'))
+    .catch(err => res.send({ status: 'failed', message: err }))
+    .then(res.render('updateUser', { user: user }));
 
 })
 
@@ -120,6 +120,11 @@ router.get('/get-data', (req, res, next) => {
   
 
   //console.log(cursor);
+})
+
+router.post('/delete', (req, res, next) => {
+  console.log(req.body.username);
+  console.log('Delete Data');
 })
 
 module.exports = router;

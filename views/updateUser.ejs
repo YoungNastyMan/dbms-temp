@@ -31,7 +31,13 @@
         <div class="form-group">
             <input class="form-control" value = "<%= user.address.country %>" type="text" name="country" placeholder="Country" />
         </div>
-        <button class="btn btn-default" type="submit">Submit</button>
+        <button class="btn btn-default" onclick="myFunction()" type="submit">Submit</button>
     </form>
 </div>
 <%- include('footer'); -%>
+
+<script>
+function myFunction() {
+  alert("Profile Succesfully Updated");
+}
+</script>
