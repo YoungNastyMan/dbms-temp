@@ -124,7 +124,14 @@ router.get('/get-data', (req, res, next) => {
 
 router.post('/delete', (req, res, next) => {
   console.log(req.body.username);
+  let user = {'username': req.body.username};
+  console.log(user.username);
   console.log('Delete Data');
+  console.log(user);
+  axios.delete('http://localhost:5000/user/deleteUser', { data : user })
+  .then(() => res.send('If user exists, then deleted'))
+  .catch(err =>  res.send({ status: 'failed', message: err }));
+  
 })
 
 module.exports = router;
