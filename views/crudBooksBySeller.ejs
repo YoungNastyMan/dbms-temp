@@ -1,6 +1,6 @@
 <%- include('header'); -%>
 <%- include('logout'); -%>
-<h4>CRUD - USERS</h4>
+<h4>CRUD - BOOKS</h4>
 <section class="insert">
     <h3>Insert User</h3>
     <form role="form" action="/users/register" method="POST" style="max-width: 300px">
@@ -41,43 +41,18 @@
     </form>
 </section>
 <section class="get">
-    <h3>Get Users:</h3>
-    <a href="/users/get-data">LOAD DATA</a>
+    <h3>Get Books sold by seller:</h3>
+    <a href="/users/get-book">LOAD Books</a>
     <div>   
      
-     <% for(var i=0; i < user.length; i++) { %>
+     <% for(var i=0; i < book.length; i++) { %>
        <tr>
          <br> 
-         <td><b>User <%= i+1 %></b></td>
+         <td><b>Book <%= i+1 %></b></td>
          <br>
          <td>Username : </td>
-         <td><%= user[i].username %></td>
+         <td><%= book[i].username %></td>
          <br>
-         <td>First Name : </td>
-         <td><%= user[i].first_name %></td>
-         <br>
-         <td>Last Name : </td>
-         <td><%= user[i].last_name %></td>
-         <br>
-         <td>User Type : </td>
-         <td><%= user[i].usertype %></td>
-         <br>
-         <td>Address : </td>
-         <td><%= user[i].address.address %></td>
-         <br>
-         <td>Pincode : </td>
-         <td><%= user[i].address.pincode %></td>
-         <br>
-         <td>City : </td>
-         <td><%= user[i].address.city %></td>
-         <br>
-         <td>State : </td>
-         <td><%= user[i].address.state %></td>
-         <br>
-         <td>Country : </td>
-         <td><%= user[i].address.country %></td>
-         <br> 
-
        </tr>
     <% } %>
 

@@ -134,6 +134,45 @@ router.post('/delete', (req, res, next) => {
   
 })
 
+//update user profile
+router.put('/updateUser1', (req, res, next) => {
+  var resultArray = [];
+  console.log("hi admin");
+  //console.log(req.body.user);
+  console.log(req.body.first_name);
+  console.log(req.body.username);
+  let user = req.body;
+  // user.address = {
+  //   'address': user.address,
+  //   'pincode': user.pincode,
+  //   'city': user.city,
+  //   'state': user.state,
+  //   'country': user.country
+  // };
+  user = {
+    'username': req.body.username,
+    'first_name': req.body.first_name,
+    'last_name': req.body.last_name,
+    'password': req.body.password,
+    'address': {
+      'address': req.body.address,
+      'pincode': req.body.pincode,
+      'city': req.body.city,
+      'state': req.body.state,
+      'country': req.body.country
+    }
+
+  }
+
+  console.log(user);
+
+  axios.put('http://localhost:5000/user/updateUser', user)
+  .then(() => res.send('If username exists, then updated'))
+  .catch(err =>  res.send({ status: 'failed', message: err }));
+
+
+})
+
 module.exports = router;
 
 

@@ -55,14 +55,23 @@ router.post('/login', passport.authenticate('local', { successRedirect: '/logins
 //Login page
 router.get('/login', (req, res) => res.render('login'));
 
-//Update Profile page
-router.get('/updateUser', (req, res) => res.render('updateUser'));
+// //Update Profile page
+// router.get('/updateUser', (req, res) => res.render('updateUser'));
+
+/*GET view profile */
+router.get('/viewProfile', function(req, res, next) {
+  //console.log(req.user);
+  res.render('viewProfile', { user: req.user });
+});
 
 //CRUD Users page
 router.get('/crudUsers', (req, res) => res.render('crudUsers'));
 
 //CRUD Users test page
 router.get('/crudUsersTest', (req, res) => res.render('crudUsersTest',{ user: req.user }));
+
+//CRUD Books By User  page
+router.get('/crudBooksBySeller', (req, res) => res.render('crudBooksBySeller',{ book: [] }));
 
 //Update/ Edit Users page
 router.get('/update-edit-buyer-seller', (req, res) => res.render('updateEditBuyerSeller'));
