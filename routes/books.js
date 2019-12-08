@@ -163,6 +163,14 @@ router.post('/delete', (req, res, next) => {
 });
 */
 
+//Get book page
+router.get('/', (req, res, next) => {
+    //use axios to get book data here.
+    const bookId = req.params.id;
+    const book = {};
+    res.render('bookPage', {user: req.user, book: book});
+});
+
 module.exports = router;
 
 

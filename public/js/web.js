@@ -311,12 +311,22 @@ $(document).ready(function() {
     $.get(apiServer + "/book/search?q=" + searchTerm, res => {
       const searchContainer = $("#searchResultsContainer");
       $.each(res, (i, book) => {
-        const thumbnail = book['image'] ? book['image']['smallThumbnail'] : '/images/books.jpg';
-        const markup = `<div class="card w-15">
-         <img class="card-img-top card-book-thumbnail" src="${thumbnail}" alt="Card image cap">
-          <div class="card-body"> <h5 class="card-title">${book.title}</h5><a href="#" class="btn btn-primary">Add to cart</a> </div> </div>`;
+        const thumbnail = book["image"]
+          ? book["image"]["thumbnail"]
+          : "/images/books.jpg";
+        const markup = `<div class="col-sm-2 my-2"><div data-id=${book._id} class="card book">
+         <img class="card-img-top" src="${thumbnail}">
+          <div class="card-body"><h6 class="card-subtitle">${
+            book.title
+          }</h6><p class="mb-2 text-muted card-text">${book.authors.join(
+          ", "
+        )}</p></div></div></div>`;
         searchContainer.append(markup);
       });
+      $('.book').on("click", e => {
+        e.preventDefault();
+        window.location = '/books?id=' + $(e.currentTarget).attr('data-id');
+      })
     });
   });
 

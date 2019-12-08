@@ -65,7 +65,8 @@ app.use((req, res, next) => {
   const allowedUnauthenticatedRoutes = [
     '/',
     '/login',
-    '/register'
+    '/register',
+    '/books'
   ];
   if (!req.user && !allowedUnauthenticatedRoutes.includes(req.path)) {
     next(createError(401));

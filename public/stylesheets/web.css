@@ -37,6 +37,7 @@ body {
   background: none;
 }
 
-.card-book-thumbnail {
-  height: 150px
+.card {
+  cursor: pointer; 
 }
+
