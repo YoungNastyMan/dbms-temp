@@ -19,7 +19,7 @@
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand">Book Store</a>
+      <span class="navbar-brand mb-0 h1 nav-link"><%= user ? [user.first_name.charAt(0).toUpperCase() + user.first_name.slice(1).toLowerCase(), user.last_name.charAt(0).toUpperCase() + user.last_name.slice(1).toLowerCase()].join(' ') : "Book Store" %></span>
       <button
         class="navbar-toggler"
         type="button"
@@ -34,7 +34,7 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-item nav-link" href="/"
-            >Home <span class="sr-only">(current)</span></a
+            >Home <span class="sr-only"></span></a
           >
           <% if(!user) { %>
           <a class="nav-item nav-link" href="/login">Login</a>

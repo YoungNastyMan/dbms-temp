@@ -41,3 +41,7 @@ body {
   cursor: pointer; 
 }
 
+.navbar-brand {
+  cursor: default;
+}
+
