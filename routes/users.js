@@ -107,7 +107,7 @@ router.get('/get-data', (req, res, next) => {
     .then (
     function() {
     console.log("SS", resultArray[3].first_name);
-    res.render('crudUsersTest', {user : resultArray});
+    res.render('crudUsersTest', {users : resultArray, user : req.user});
       });
     
 })

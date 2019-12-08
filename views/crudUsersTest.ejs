@@ -7,37 +7,37 @@
     <a href="/users/get-data">LOAD DATA</a>
     <div>   
      
-     <% for(var i=0; i < user.length; i++) { %>
+     <% for(var i=0; i < users.length; i++) { %>
        <tr>
          <br> 
          <td><b>User <%= i+1 %></b></td>
          <br>
          <td>Username : </td>
-         <td><%= user[i].username %></td>
+         <td><%= users[i].username %></td>
          <br>
          <td>First Name : </td>
-         <td><%= user[i].first_name %></td>
+         <td><%= users[i].first_name %></td>
          <br>
          <td>Last Name : </td>
-         <td><%= user[i].last_name %></td>
+         <td><%= users[i].last_name %></td>
          <br>
          <td>User Type : </td>
-         <td><%= user[i].usertype %></td>
+         <td><%= users[i].usertype %></td>
          <br>
          <td>Address : </td>
-         <td><%= user[i].address.address %></td>
+         <td><%= users[i].address.address %></td>
          <br>
          <td>Pincode : </td>
-         <td><%= user[i].address.pincode %></td>
+         <td><%= users[i].address.pincode %></td>
          <br>
          <td>City : </td>
-         <td><%= user[i].address.city %></td>
+         <td><%= users[i].address.city %></td>
          <br>
          <td>State : </td>
-         <td><%= user[i].address.state %></td>
+         <td><%= users[i].address.state %></td>
          <br>
          <td>Country : </td>
-         <td><%= user[i].address.country %></td>
+         <td><%= users[i].address.country %></td>
          <br> 
 
        </tr>

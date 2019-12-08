@@ -291,7 +291,40 @@ $(document).ready(function() {
       url: apiServer + "/user/register",
       type: "POST",
       contentType: "application/json",
-      data: JSON.stringify(user),
+      data: JSON.stringify({
+        username: $(event.currentTarget)
+          .find("[name=username]")
+          .val(),
+        first_name: $(event.currentTarget)
+          .find("[name=first_name]")
+          .val(),
+        last_name: $(event.currentTarget)
+          .find("[name=last_name]")
+          .val(),
+        usertype: $(event.currentTarget)
+          .find("[name=usertype]")
+          .val(),
+        password: $(event.currentTarget)
+          .find("[name=password]")
+          .val(),
+        address: {
+          address: $(event.currentTarget)
+            .find("[name=address]")
+            .val(),
+          pincode: $(event.currentTarget)
+            .find("[name=pincode]")
+            .val(),
+          city: $(event.currentTarget)
+            .find("[name=city]")
+            .val(),
+          state: $(event.currentTarget)
+            .find("[name=state]")
+            .val(),
+          country: $(event.currentTarget)
+            .find("[name=country]")
+            .val()
+        }
+      }),
       success: data => {
         alert(data.status);
         setTimeout(2000, () => {
@@ -348,10 +381,12 @@ $(document).ready(function() {
         alert("Login failed. Please try again.");
       },
       success: (user) => {
-        if(user.usertype === 'admin') {
+        if(user.usertype === 'admin'
+            || user.usertype === 'seller'
+            || user.usertype === 'moderator') {
           window.location = "/loginSuccess";
         } else {
-          window.location = "/";
+          window.location = "/loginSuccess";
         }
       }
     });

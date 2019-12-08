@@ -33,9 +33,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-item nav-link" href="/"
-            >Home <span class="sr-only"></span></a
-          >
+        <% if(!user
+              || user.usertype == 'buyer') { %>}
+          <a class="nav-item nav-link" href="/">Home <span class="sr-only"></span></a>
+          <% } %>
           <% if(!user) { %>
           <a class="nav-item nav-link" href="/login">Login</a>
           <a class="nav-item nav-link" href="/register">Sign up</a>
