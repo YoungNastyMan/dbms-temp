@@ -86,7 +86,7 @@ router.put('/updateUser', (req, res, next) => {
     .catch(err => res.send({ status: 'failed', message: err }))
     .then(res.render('updateUser', { user: user }));
 
-})
+});
 
 router.get('/get-data', (req, res, next) => {
   
