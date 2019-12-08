@@ -16,7 +16,7 @@ router.post('/search', (req, res) => {
             cursor = res.data;
            // console.log(cursor);
             cursor.forEach(function (doc, err) {
-               // console.log(doc.title);
+                //console.log(doc.title);
                 resultArray.push(doc);
             })
 
@@ -30,7 +30,30 @@ router.post('/search', (req, res) => {
 });
 
 router.post('/bookPage', (req, res) => {
-    res.render('bookPage', {book: res.body.book})
+    res.render('bookPage', {book: req.body})
+});
+
+router.post('/get-reviews', (req, res) => {
+    console.log(req.body);
+    var reviewsArray = [];
+    var cursor;
+    axios.get("http://localhost:5000/review/findReviewByBook?q=" + req.body.searchText)
+        .then(function (res) {
+            //console.log('response::', res.data);
+
+            cursor = res.data;
+            // console.log(cursor);
+            cursor.forEach(function (doc, err) {
+                // console.log(doc.title);
+                reviewsArray.push(doc);
+            })
+
+        })
+        .then(
+            function () {
+                res.render('bookPage', {review: reviewsArray});
+            }
+        )
 });
 
 /*

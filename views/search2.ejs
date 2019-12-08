@@ -60,11 +60,39 @@
 </div>
 <div class="list-group">
     <form id="selectBook" action="/books/bookPage" method="post">
-    <%
+    <% console.log(book[i]);
     for(var i=0; i < book.length; i++) { %>
-        <tr><a id="selectedBook" class="list-group-item list-group-item-action"><%=book[i].title %>
-                <button class="btn btn-xs" type ="submit">More info</button>
-            </a></tr>
+        <tr><h3><%=book[i].title %></h3>
+                <form id="heyForm" role="form" action="/books/bookPage" method="post" style="max-width: 300px">
+                    <div class="form-group">
+                        <input class="form-control" value = "<%= book[i].title %>" type="hidden" name="title" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" value = "<%= book[i]._id %>" type="hidden" name="id" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" value = "<%= book[i].description %>" type="hidden" name="description" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" value = "<%= book[i].pagecount %>" type="hidden" name="pagecount" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" value = "<%= book[i].publishedDate %>" type="hidden" name="publishedDate" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" value = "<%= book[i].price.amount %>" type="hidden" name="priceAmount" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" value = "<%= book[i].authors %>" type="hidden" name="authors" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" value = "<%= book[i].industryIdentifiers %>" type="hidden" name="industryIdentifiers" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" value = "<%= book[i].categories %>" type="hidden" name="categories" readonly/>
+                    </div>
+            <button class="btn btn-default" type="submit">More info</button>
+        </form></tr><br />
     <% } %>
     </form>
 </div>

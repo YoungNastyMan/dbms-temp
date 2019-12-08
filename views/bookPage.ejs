@@ -16,23 +16,42 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/searchStyle.css">
 </head>
 <body>
-<% for(var i=0; i < book.length; i++) {
-    console.log(book[1].title)%>
     <tr>
+        <th style="font-weight: bold">Book title: <%= book.title %></th>
         <br>
-        <td><b>Book <%= i+1 %></b></td>
         <br>
-        <td>Book: </td>
-        <td><%= book[i].title %></td>
+        <td>ID: <%= book.id%></td>
+        <br />
+        <br/>
+        <td style="color: black; font-weight: bold">About: <%= book.description %></td>
         <br>
-        <td><%= book[i].description %></td>
         <br>
-        <td><%= book[i].publishedDate %></td>
+        <td>Number of pages: <%= book.pagecount %></td>
         <br>
-        <td><%= book[i].createdAt %></td>
+        <br>
+        <td>Published year: <%= book.publishedDate %></td>
+        <br>
+        <br>
+        <td>Price:<%= book.priceAmount%></td>
+        <br>
+        <br>
+        <td>Industry identifiers: <%= book.industryIdentifiers %></td>
+        <br>
+        <br>
+        <td>Number of Pages:<%= book.pagecount %></td>
+        <br>
+        <br>
+        <td>Categories: <%= book.categories %></td>
         <br>
     </tr>
-<% } %>
+%>
+<!--<form action="/books/get-reviews" method="post">
+    <button class = "button btn-default" value="" onclick="" type="button">View reviews</button>
+</form>-->
+    <form action="/books/get-reviews" method="post">
+        <input type="submit" name="<%= book.id %>" value="Get reviews" />
+    </form>
+<button class = "button btn-default" type="submit">Add to cart</button>
 </body>
 </html>
 
