@@ -66,7 +66,7 @@ app.use('/users', usersRouter);
 app.use('/books', booksRouter);
 
 //We need to get rid of this and do something else entirely. This should never be connecting directly to the database.
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.log('Error in DB connection : ' + err));
+mongoose.connect('mongodb+srv://swapnil:swapnil123@dbmsprojectcluster-dq6c3.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.log('Error in DB connection : ' + err));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -75,7 +75,7 @@ app.use(function (req, res, next) {
 
 // adding an authenticated pages module
 app.use((req, res, next) => {
-  
+
   const allowedUnauthenticatedRoutes = [
     '/'
   ];
