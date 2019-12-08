@@ -4,6 +4,9 @@ const passport = require('passport');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var app = express();
+
+app.use(express.static(__dirname + '/public'));
+
 router.use(bodyParser.urlencoded({extended: true}))
 router.use(methodOverride(function(req,res){
   if(req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -12,7 +15,7 @@ router.use(methodOverride(function(req,res){
     return method 
   }
 
-}))
+}));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -23,17 +26,25 @@ router.get('/', function(req, res, next) {
   res.render('home');
 });
 
-/*Get search page */
+// router.get('/search', function (req, res, next) {
+//   res.render('search2',{ book: req.book });
+// });
+router.get('/search', (req, res) => {
+  var curBook = [];
+  res.render('search2', {book: curBook})
+});
+
+/*/!*Get search page *!/
 router.get('/search', function(req, res, next) {
   res.render('search', { title: 'Express' });
-});
+});*/
 
 /* GET registration page. */
 router.get('/register', function(req, res, next) {
   res.render('register', { title: 'Express' });
 });
 
-/*GET login succes page */
+/*GET login success page */
 router.get('/loginsuccess', function(req, res, next) {
   console.log(req.user);
   if(!req.user) {
@@ -51,6 +62,10 @@ router.get('/updateUser', function(req, res, next) {
 
 //Login route
 router.post('/login', passport.authenticate('local', { successRedirect: '/loginsuccess' }));
+
+router.get('/bookPage', function(req, res) {
+  res.render('bookPage', {book: []});
+});
 
 //Login page
 router.get('/login', (req, res) => res.render('login'));
