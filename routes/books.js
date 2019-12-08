@@ -32,8 +32,13 @@ router.post('/search', (req, res) => {
 });
 
 router.post('/bookPage', (req, res) => {
-    console.log("BP",req);
-    res.render('bookPage', {book: req.body})
+    console.log("BP1",req.body.user);
+    var q = req.body.user;
+    var user1;
+    axios.get('http://localhost:5000/user/username', q)
+    .then((user) => user1 = user);
+    console.log("SS",user1);
+    res.render('bookPage', {book: req.body, user: req.body.user})
 });
 
 /*

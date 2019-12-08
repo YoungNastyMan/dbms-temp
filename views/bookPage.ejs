@@ -18,6 +18,9 @@
 </head>
 <body>
 <nav class="navbar navbar-inverse">
+<% if(user) {
+           %><h2><%= user.username%> </h1> <% 
+        } %>
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -31,10 +34,16 @@
             <ul class="nav navbar-nav">
                 <li><a href="/search2">Home</a></li>
             </ul>
+            <ul class="nav navbar-nav">
+                <% if(user) { %>
+                  <h2></h2>
+                    <li><a href="/logout">Logout</a></li>
+            </ul> <% } %>
+            <% if(!user) { %>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/login">Login</a></li>
                 <li><a href="/register">Sign up</a></li>
-            </ul>
+            </ul> <% } %>
         </div>
     </div>
 </nav>

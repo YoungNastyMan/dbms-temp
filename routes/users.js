@@ -5,6 +5,7 @@ const userModel = require('../models/user');
 var assert = require('assert');
 /* GET user listing. */
 router.get('/', function (req, res) {
+  console.log(req.user);
   if (!req.user) {
     res.send('No auth');
   }

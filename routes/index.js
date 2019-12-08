@@ -33,7 +33,7 @@ router.use(methodOverride(function(req,res){
 router.get('/', (req, res) => {
   var curBook = [];
   var curUser = [];
-  res.render('search2', {book: curBook, user : 'anonymous'})
+  res.render('search2', {book: curBook, user : undefined})
 });
 
 router.get('/searchAfterLogin', (req, res) => {
@@ -103,7 +103,7 @@ router.get('/crudReviews', (req, res) => res.render('crudReviews',{ review: [] }
 //Update/ Edit Users page
 router.get('/update-edit-buyer-seller', (req, res) => res.render('updateEditBuyerSeller'));
 
-router.post('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/login');
 });

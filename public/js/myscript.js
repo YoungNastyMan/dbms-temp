@@ -111,7 +111,7 @@ $(document).ready(function () {
         }
 
         // alert("AA");
-        // alert(book.seller);
+        // alert(book.seller);a
         // alert(book.title);
         // alert(book.categories);
         // alert(book.publisher);
@@ -194,7 +194,7 @@ $(document).ready(function () {
     $('#register').on('submit', (event) => {
         event.preventDefault();
 
-        var user = {
+        const user = {
             'username': $(event.currentTarget).find('[name=username]').val(),
             'first_name': $(event.currentTarget).find('[name=first_name]').val(),
             'last_name': $(event.currentTarget).find('[name=last_name]').val(),
@@ -206,29 +206,24 @@ $(document).ready(function () {
                 'state': $(event.currentTarget).find('[name=state]').val(),
                 'country': $(event.currentTarget).find('[name=country]').val()
             }
-        }
+        };
         $.ajax({
             url: 'http://localhost:5000/user/register',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({
-                'username': $(event.currentTarget).find('[name=username]').val(),
-                'first_name': $(event.currentTarget).find('[name=first_name]').val(),
-                'last_name': $(event.currentTarget).find('[name=last_name]').val(),
-                'password': $(event.currentTarget).find('[name=password]').val(),
-                'usertype': $(event.currentTarget).find('[name=usertype]').val(),
-                'address': {
-                    'address': $(event.currentTarget).find('[name=address]').val(),
-                    'pincode': $(event.currentTarget).find('[name=pincode]').val(),
-                    'city': $(event.currentTarget).find('[name=city]').val(),
-                    'state': $(event.currentTarget).find('[name=state]').val(),
-                    'country': $(event.currentTarget).find('[name=country]').val()
-                }
-            }),
+            data: JSON.stringify(user),
             success: (data) => {
                 alert(data.status);
             }
         });
     });
 
+    // $('#searchForm').on('submit', (e) => {
+    //     e.preventDefault();
+
+    //     const searchTerm = $(e.currentTarget).find('[name=searchText]').val();
+    //     $.get('http://localhost:5000/book/search?q=' + searchTerm, (res) => {
+    //         console.log(res);
+    //     });
+    // });
 });
