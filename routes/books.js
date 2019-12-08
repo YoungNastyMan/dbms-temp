@@ -4,7 +4,7 @@ var axios = require('axios');
 var router = express.Router();
 
 router.post('/search', (req, res) => {
-    console.log("SS",req.user);
+    console.log("SS", req.user);
     var resultArray = [];
     var cursor;
     axios.get("http://localhost:5000/book/search?q=" + req.body.searchText)
@@ -12,30 +12,30 @@ router.post('/search', (req, res) => {
             //console.log('response::', res.data);
 
             cursor = res.data;
-           // console.log(cursor);
+            // console.log(cursor);
             cursor.forEach(function (doc, err) {
-               // console.log(doc.title);
+                // console.log(doc.title);
                 resultArray.push(doc);
             })
 
         })
         .then(
             function () {
-               // console.log("Here", resultArray[0].title);
+                // console.log("Here", resultArray[0].title);
 
-               res.render('search2', { book: resultArray, user : req.user });
+                res.render('search2', { book: resultArray, user: req.user });
             }
         )
 });
 
 router.post('/bookPage', (req, res) => {
-    console.log("BP1",req.body.user);
+    console.log("BP1", req.body.user);
     var q = req.body.user;
     var user1;
     axios.get('http://localhost:5000/user/username', q)
-    .then((user) => user1 = user);
-    console.log("SS",user1);
-    res.render('bookPage', {book: req.body, user: req.user})
+        .then((user) => user1 = user);
+    console.log("SS", user1);
+    res.render('bookPage', { book: req.body, user: req.user })
 });
 
 /*
@@ -167,8 +167,24 @@ router.post('/delete', (req, res, next) => {
 router.get('/', (req, res, next) => {
     //use axios to get book data here.
     const bookId = req.params.id;
-    const book = {};
-    res.render('bookPage', {user: req.user, book: book});
+    const url = req.url;
+    const vars = url.split("?");
+    var id = vars[1];
+    id = id.substring(3);
+    console.log(id);
+    axios.get('http://localhost:5000/book/booksByID?q=' + id)
+        .then(function (res) {
+            book = res.data;
+            console.log("BOOK", book);
+            res.render('bookPage', { user: req.user, book: book });
+
+        })
+        // .then(
+        //     function () {
+                
+        //     })
+            .catch(err =>  res.send({ status: 'failed', message: err }));
+
 });
 
 module.exports = router;
