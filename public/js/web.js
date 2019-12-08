@@ -337,11 +337,12 @@ $(document).ready(function() {
   //Search for books.
   $("#searchForm").on("submit", e => {
     e.preventDefault();
-
+    // location.reload();
     const searchTerm = $(e.currentTarget)
       .find("[name=searchText]")
       .val();
     $.get(apiServer + "/book/search?q=" + searchTerm, res => {
+      $("#searchResultsContainer").empty();
       const searchContainer = $("#searchResultsContainer");
       $.each(res, (i, book) => {
         const thumbnail = book["image"]
@@ -354,6 +355,7 @@ $(document).ready(function() {
           }</h6><p class="mb-2 text-muted card-text">${book.authors.join(
           ", "
         )}</p></div></div></div>`;
+        
         searchContainer.append(markup);
       });
       $('.book').on("click", e => {
