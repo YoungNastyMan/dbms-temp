@@ -347,8 +347,12 @@ $(document).ready(function() {
       error: err => {
         alert("Login failed. Please try again.");
       },
-      success: res => {
-        window.location = "/";
+      success: (user) => {
+        if(user.usertype === 'admin') {
+          window.location = "/loginSuccess";
+        } else {
+          window.location = "/";
+        }
       }
     });
   });

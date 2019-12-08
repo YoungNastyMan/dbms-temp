@@ -46,7 +46,6 @@ router.get('/updateUser', function(req, res, next) {
 
 //Login page
 router.get('/login', (req, res) => {
-  console.log(req.user);
   if (req.user) {
     res.redirect('/');
   }
@@ -54,7 +53,9 @@ router.get('/login', (req, res) => {
 });
 
 //Login route
-router.post('/login', passport.authenticate('local', {successRedirect: '/'}));
+router.post('/login', passport.authenticate('local'), (req, res, next) => {
+  res.json(req.user);
+});
 
 router.get('/bookPage', function(req, res) {
   var user = {};
