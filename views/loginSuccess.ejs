@@ -14,10 +14,12 @@
 <br>
 <br>
   <% if(user.usertype === 'admin') { %>
-    <a href="\crudUsers">Update / Delete Buyers And Sellers</a>
-    <a href="\crudUsersTest">Update / Delete Buyers And Sellers Test</a>
+    <a href="\crudUsersTest">Read / Update / Delete Buyers And Sellers Test</a>
   <% }
    if(user.usertype === 'seller') { %>
-    <a href="\crudBooksBySeller">Update / Delete Books sold by you <% user.username %></a>
+    <a href="\crudBooksBySeller">CRUD Books sold by <% user.username %></a>
+  <% }
+  if(user.usertype === 'moderator') { %>
+    <a href="\crudReviews">Read / Delete reviews <% user.username %></a>
   <% }
   %>

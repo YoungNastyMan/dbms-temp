@@ -1,0 +1,30 @@
+<%- include('header'); -%>
+<%- include('logout'); -%>
+<h4>CRUD - Reivews</h4>
+<section class="get">
+    <h3>Get eeivews for books:</h3>
+    <form role="form" action="/users/get-books" method="get" style="max-width: 300px">
+     <button type="submit">Get Reviews For Book</button>
+    </form>
+    <div>   
+     
+     <% for(var i=0; i < review.length; i++) { %>
+       <tr>
+         <br> 
+         <td><b>Book <%= i+1 %></b></td>
+         <br>
+       </tr>
+    <% } %>
+
+    </div>
+</section>
+<section class="delete">
+    <h3>Delete Book Review:</h3>
+    <form id="bookDelete">
+        <div class="form-group">
+            <input class="form-control" type="text" name="title" placeholder="Enter Title of Book" />
+        </div>
+        <button type="submit">DELETE</button>
+    </form>
+</section>
+<%- include('footer'); -%>

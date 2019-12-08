@@ -73,6 +73,9 @@ router.get('/crudUsersTest', (req, res) => res.render('crudUsersTest',{ user: re
 //CRUD Books By User page
 router.get('/crudBooksBySeller', (req, res) => res.render('crudBooksBySeller',{ book: [], user: req.user}));
 
+//CRUD Books By User page
+router.get('/crudReviews', (req, res) => res.render('crudReviews',{ review: [] }));
+
 //Update/ Edit Users page
 router.get('/update-edit-buyer-seller', (req, res) => res.render('updateEditBuyerSeller'));
 
