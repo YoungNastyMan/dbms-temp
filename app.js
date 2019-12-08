@@ -1,35 +1,30 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-require('dotenv').config();
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
-var cookieParser = require('cookie-parser');
-var methodOverride = require('method-override');
-var bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const booksRouter = require('./routes/books');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var booksRouter = require('./routes/books');
-
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-// app.set('view engine', 'hbs');
 
-app.use(logger('combined'));
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cookieParser());
 app.use(require('express-session')({
-  secret: 'keyboard cat',
+  secret: 'swapnil the fool',
   resave: false,
   saveUninitialized: false
 }));
@@ -70,11 +65,24 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/books', booksRouter);
 
+//We need to get rid of this and do something else entirely. This should never be connecting directly to the database.
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.log('Error in DB connection : ' + err));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
+});
+
+// adding an authenticated pages module
+app.use((req, res, next) => {
+  
+  const allowedUnauthenticatedRoutes = [
+    '/'
+  ];
+  if (!allowedUnauthenticatedRoutes.includes(req.path)) {
+    next(createError(401));
+  }
+  next();
 });
 
 // error handler
