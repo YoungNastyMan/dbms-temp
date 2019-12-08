@@ -7,6 +7,7 @@ const render = require("ejs").render;
 
 
 router.post('/search', (req, res) => {
+    console.log("SS",req.user);
     var resultArray = [];
     var cursor;
     axios.get("http://localhost:5000/book/search?q=" + req.body.searchText)
@@ -24,13 +25,15 @@ router.post('/search', (req, res) => {
         .then(
             function () {
                // console.log("Here", resultArray[0].title);
-                res.render('search2', { book: resultArray });
+
+               res.render('search2', { book: resultArray, user : req.user });
             }
         )
 });
 
 router.post('/bookPage', (req, res) => {
-    res.render('bookPage', {book: res.body.book})
+    console.log("BP",req);
+    res.render('bookPage', {book: req.body})
 });
 
 /*

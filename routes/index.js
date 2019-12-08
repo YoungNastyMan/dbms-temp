@@ -18,21 +18,29 @@ router.use(methodOverride(function(req,res){
 }));
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  console.log("here");
-  if(!req.user) {
-    res.redirect('/login');
-  }
-  res.render('home');
-});
+// router.get('/', function(req, res, next) {
+//   console.log("here");
+//   if(!req.user) {
+//     res.redirect('/login');
+//   }
+//   res.render('home');
+// });
+
 
 // router.get('/search', function (req, res, next) {
 //   res.render('search2',{ book: req.book });
 // });
-router.get('/search', (req, res) => {
+router.get('/', (req, res) => {
   var curBook = [];
-  res.render('search2', {book: curBook})
+  var curUser = [];
+  res.render('search2', {book: curBook, user : 'anonymous'})
 });
+
+router.get('/searchAfterLogin', (req, res) => {
+  var curBook = [];
+  res.render('search2', {book: curBook, user: req.user});
+});
+
 
 /*/!*Get search page *!/
 router.get('/search', function(req, res, next) {
@@ -64,7 +72,8 @@ router.get('/updateUser', function(req, res, next) {
 router.post('/login', passport.authenticate('local', { successRedirect: '/loginsuccess' }));
 
 router.get('/bookPage', function(req, res) {
-  res.render('bookPage', {book: []});
+  var user = {};
+  res.render('bookPage', {book: [], user : user});
 });
 
 //Login page
