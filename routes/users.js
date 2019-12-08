@@ -109,17 +109,31 @@ router.get('/get-data', (req, res, next) => {
     res.render('crudUsersTest', {user : resultArray});
       });
     
-    //  function() {
-    //     console.log("Result Array");
-    //     console.log(resultArray[4].username);
-    //     res.render('\crudUsersTest', {items : resultArray});
-    // });
-  
+})
 
+router.get('/get-books', (req, res, next) => {
   
-  
+  console.log('Get Book');
+  console.log("User", req.user._id);
+  var resultArray = [];
+  var cursor;
 
-  //console.log(cursor);
+  axios.get('http://localhost:5000/book/booksBySeller?q='+req.user._id)
+  .then(function (res) {
+    cursor = res.data;
+    console.log(cursor);
+    cursor.forEach(function(doc,err) {
+        // assert(null,err);
+        console.log('doc');
+          console.log(doc.authors[0]);
+        resultArray.push(doc);
+    }) })
+    .then (
+    function() {
+    // console.log("SS", resultArray[3].title);
+    res.render('crudBooksBySeller', {book : resultArray, user : req.user});
+      });
+    
 })
 
 router.post('/delete', (req, res, next) => {

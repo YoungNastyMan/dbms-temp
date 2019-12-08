@@ -70,8 +70,8 @@ router.get('/crudUsers', (req, res) => res.render('crudUsers'));
 //CRUD Users test page
 router.get('/crudUsersTest', (req, res) => res.render('crudUsersTest',{ user: req.user }));
 
-//CRUD Books By User  page
-router.get('/crudBooksBySeller', (req, res) => res.render('crudBooksBySeller',{ book: [] }));
+//CRUD Books By User page
+router.get('/crudBooksBySeller', (req, res) => res.render('crudBooksBySeller',{ book: [], user: req.user}));
 
 //Update/ Edit Users page
 router.get('/update-edit-buyer-seller', (req, res) => res.render('updateEditBuyerSeller'));
