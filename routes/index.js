@@ -6,32 +6,16 @@ var app = express();
 
 app.use(express.static(__dirname + '/public'));
 
-router.use(bodyParser.urlencoded({extended: true}))
+router.use(bodyParser.urlencoded({ extended: true }));
 
-/* GET home page. */
-// router.get('/', function(req, res, next) {
-//   console.log("here");
-//   if(!req.user) {
-//     res.redirect('/login');
-//   }
-//   res.render('home');
-// });
-
-
-// router.get('/search', function (req, res, next) {
-//   res.render('search2',{ book: req.book });
-// });
 router.get('/', (req, res) => {
-  var curBook = [];
-  var curUser = [];
-  res.render('search2', {book: curBook, user : undefined})
+  res.render('home', { user: req.user });
 });
 
 router.get('/searchAfterLogin', (req, res) => {
   var curBook = [];
-  res.render('search2', {book: curBook, user: req.user});
+  res.render('search2', { book: curBook, user: req.user });
 });
-
 
 /*/!*Get search page *!/
 router.get('/search', function(req, res, next) {
@@ -40,18 +24,19 @@ router.get('/search', function(req, res, next) {
 
 /* GET registration page. */
 router.get('/register', function(req, res, next) {
-  res.render('register', { title: 'Express' });
+  if (req.user) {
+    res.redirect('/');
+  }
+  res.render('register', { user: req.user });
 });
 
 /*GET login success page */
 router.get('/loginsuccess', function(req, res, next) {
-  console.log(req.user);
-  if(!req.user) {
+  if (!req.user) {
     res.render('loginFailure');
   }
   res.render('loginSuccess', { user: req.user });
 });
-
 
 /*GET update user page */
 router.get('/updateUser', function(req, res, next) {
@@ -59,16 +44,22 @@ router.get('/updateUser', function(req, res, next) {
   res.render('updateUser', { user: req.user });
 });
 
+//Login page
+router.get('/login', (req, res) => {
+  console.log(req.user);
+  if (req.user) {
+    res.redirect('/');
+  }
+  res.render('login', { user: req.user });
+});
+
 //Login route
-router.post('/login', passport.authenticate('local', { successRedirect: '/loginsuccess' }));
+router.post('/login', passport.authenticate('local', {successRedirect: '/'}));
 
 router.get('/bookPage', function(req, res) {
   var user = {};
-  res.render('bookPage', {book: [], user : user});
+  res.render('bookPage', { book: [], user: user });
 });
-
-//Login page
-router.get('/login', (req, res) => res.render('login'));
 
 // //Update Profile page
 // router.get('/updateUser', (req, res) => res.render('updateUser'));
@@ -83,20 +74,28 @@ router.get('/viewProfile', function(req, res, next) {
 router.get('/crudUsers', (req, res) => res.render('crudUsers'));
 
 //CRUD Users test page
-router.get('/crudUsersTest', (req, res) => res.render('crudUsersTest',{ user: req.user }));
+router.get('/crudUsersTest', (req, res) =>
+  res.render('crudUsersTest', { user: req.user })
+);
 
 //CRUD Books By User page
-router.get('/crudBooksBySeller', (req, res) => res.render('crudBooksBySeller',{ book: [], user: req.user}));
+router.get('/crudBooksBySeller', (req, res) =>
+  res.render('crudBooksBySeller', { book: [], user: req.user })
+);
 
 //CRUD Books By User page
-router.get('/crudReviews', (req, res) => res.render('crudReviews',{ review: [] }));
+router.get('/crudReviews', (req, res) =>
+  res.render('crudReviews', { review: [] })
+);
 
 //Update/ Edit Users page
-router.get('/update-edit-buyer-seller', (req, res) => res.render('updateEditBuyerSeller'));
+router.get('/update-edit-buyer-seller', (req, res) =>
+  res.render('updateEditBuyerSeller')
+);
 
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/login');
+  res.redirect('/');
 });
 
 module.exports = router;

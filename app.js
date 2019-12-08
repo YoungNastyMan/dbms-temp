@@ -34,7 +34,6 @@ const userModel = require('./models/user');
 //configure auth here.
 passport.use(new localStrategy(
   function (username, password, done) {
-    console.log("here");
     userModel.findOne({ username: username }, function (err, user) {
       if (err) { return done(err); }
       if (!user) {
@@ -61,6 +60,20 @@ passport.deserializeUser(function (id, done) {
 app.use(passport.initialize());
 app.use(passport.session());
 
+// adding an authenticated pages module
+app.use((req, res, next) => {
+  const allowedUnauthenticatedRoutes = [
+    '/',
+    '/login',
+    '/register'
+  ];
+  if (!req.user && !allowedUnauthenticatedRoutes.includes(req.path)) {
+    next(createError(401));
+  }
+  console.log(req.path);
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/books', booksRouter);
@@ -71,18 +84,6 @@ mongoose.connect('mongodb+srv://swapnil:swapnil123@dbmsprojectcluster-dq6c3.mong
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
-});
-
-// adding an authenticated pages module
-app.use((req, res, next) => {
-
-  const allowedUnauthenticatedRoutes = [
-    '/'
-  ];
-  if (!allowedUnauthenticatedRoutes.includes(req.path)) {
-    next(createError(401));
-  }
-  next();
 });
 
 // error handler
