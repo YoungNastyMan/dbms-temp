@@ -312,8 +312,8 @@ $(document).ready(function() {
       const searchContainer = $("#searchResultsContainer");
       $.each(res, (i, book) => {
         const thumbnail = book['image'] ? book['image']['smallThumbnail'] : '/images/books.jpg';
-        const markup = `<div class="card" style="width: 18rem;">
-         <img class="card-img-top height="50px"" src="${thumbnail}" alt="Card image cap">
+        const markup = `<div class="card w-15">
+         <img class="card-img-top card-book-thumbnail" src="${thumbnail}" alt="Card image cap">
           <div class="card-body"> <h5 class="card-title">${book.title}</h5><a href="#" class="btn btn-primary">Add to cart</a> </div> </div>`;
         searchContainer.append(markup);
       });
