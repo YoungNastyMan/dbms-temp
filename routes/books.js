@@ -2,9 +2,6 @@
 var express = require('express');
 var axios = require('axios');
 var router = express.Router();
-var assert = require('assert');
-const render = require("ejs").render;
-
 
 router.post('/search', (req, res) => {
     console.log("SS",req.user);
@@ -38,7 +35,7 @@ router.post('/bookPage', (req, res) => {
     axios.get('http://localhost:5000/user/username', q)
     .then((user) => user1 = user);
     console.log("SS",user1);
-    res.render('bookPage', {book: req.body, user: req.body.user})
+    res.render('bookPage', {book: req.body, user: req.user})
 });
 
 /*
