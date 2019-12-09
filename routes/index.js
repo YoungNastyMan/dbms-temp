@@ -77,6 +77,12 @@ router.get('/manageCart', function(req, res, next) {
   res.render('manageCart', { cart: [], user: req.user });
 });
 
+/*GET manage order */
+router.get('/manageOrder', function(req, res, next) {
+  //console.log(req.user);
+  res.render('manageOrder', { order: [], user: req.user });
+});
+
 //CRUD Users page
 router.get('/crudUsers', (req, res) => res.render('crudUsers'));
 

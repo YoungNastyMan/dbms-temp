@@ -31,7 +31,18 @@
 
     </div>
 </section>
-<section class="clearCart">
+<section class="deleteItemFromCart">
+    <h3>Delete Books From Cart By Title</h3>
+    <form id="deleteItemFromCart">
+        <div class="form-group">
+            <input type="hidden" class="form-control"  value= "<%= user.username %>" name="username" >
+            <input type="text" class="form-control" name="title" placeholder="Enter book title">
+            <button id="sub" class="btn btn-default" type="submit">Press To Clear Book From Cart
+            </button>
+        </div>
+    </form>
+
+</section><section class="clearCart">
     <h3>Clear Cart</h3>
     <form id="clearCart">
         <div class="form-group">

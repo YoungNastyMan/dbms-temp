@@ -59,7 +59,50 @@ $(document).ready(function () {
     });
   });
 
-  //Empty Cart
+  //Delete Item From Cart
+  $("#deleteItemFromCart").on("submit", e => {
+    e.preventDefault();
+
+    const username = $(e.currentTarget).find("[name=username]").val();
+    const title = $(e.currentTarget).find("[name=title]").val();
+     
+    // alert(username);
+    // alert(title);
+
+    $.ajax({
+      url: apiServer + "/cart/deleteBooksFromCart",
+      method: "DELETE",
+      contentType: "application/json",
+      data : JSON.stringify({buyer : username, book : title}),
+      success: data => {
+        alert(data.status)
+
+      }
+    });
+  });
+
+
+  //Delete Order By ID
+  $("#deleteOrderByID").on("submit", e => {
+    e.preventDefault();
+    
+    const id = $(e.currentTarget).find("[name=orderId]").val();
+    
+    // alert("ABC");
+    // alert(id);
+
+    $.ajax({
+      url: apiServer + "/order/deleteOrderById?q=" + id,
+      method: "DELETE",
+      contentType: "application/json",
+      success: data => {
+        alert(data.status)
+
+      }
+    });
+  });
+
+  //Add to Order From Cart
   $("#addToOrders").on("submit", e => {
     e.preventDefault();
 
@@ -71,7 +114,7 @@ $(document).ready(function () {
     // alert(cart[0].buyer);
     // alert(book); 
     // alert(quantity);
-    alert(username);
+    // alert(username);
 
     $.ajax({
       url: apiServer + "/cart/getUserCart?q=" + username,
@@ -87,7 +130,7 @@ $(document).ready(function () {
             url: apiServer + "/order/addToOrder",
             method: "POST",
             contentType: "application/json",
-            data: JSON.stringify ({
+            data: JSON.stringify({
               buyer: element.buyer,
               book: element.book,
               quantity: element.quantity
@@ -98,7 +141,7 @@ $(document).ready(function () {
                 method: "DELETE",
                 contentType: "application/json",
                 success: data => {
-                  
+
                 }
               })
             }
