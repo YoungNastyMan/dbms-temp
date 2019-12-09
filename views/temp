@@ -45,3 +45,48 @@
         </div>
         <button class="btn btn-default" type="submit">Submit</button>
     </form>
+
+
+//delete review
+router.post('/delete-review', async(req, res) => {
+
+    let bookRes;
+    var bookId;
+    var userRes;
+    var userId;
+    let delReponse;
+
+   try {
+        delResponse = await axios.delete('http://localhost:5000/review/deleteReview',{
+            data:{
+            book:req.body.bookToDelete,
+            buyer:req.body.reviewerUserName
+            }
+        })
+        console.log(delResponse.status);
+    }
+    catch(e) {
+        console.log(e);
+    }
+    res.render('crudReviews', {reviews: [], user:req.user, title: delResponse});      
+});
+
+
+
+   //Getting book by title to fetch its ID
+        bookRes = await axios.get('http://localhost:5000/book/booksByTitle?q='+ req.body.bookToDelete);
+        bookId = bookRes.data[0]._id;
+        console.log("Book id=" + bookId);
+
+        userRes = await axios.get('http://localhost:5000/user/username?q='+ req.body.reviewerUserName);
+        userId = userRes.data[0]._id;
+        console.log("Reviewer userId=" + userId);
+
+        <% if(!user) { %>
+  <form role="form" action="/books/get-reviews-for-buyer" method="post" style="max-width: 300px">
+    <input type="hidden" name="bookTitle" value="<%= book.title %>" readonly/>
+    <button type="submit">Get reviews</button>
+    <br>
+    <br>
+  </form>
+  <% } %>

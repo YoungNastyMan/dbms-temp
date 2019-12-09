@@ -107,9 +107,14 @@ router.get('/crudBooksByAdmin', (req, res) =>
   res.render('crudBooksByAdmin', { book: [], user: req.user })
 );
 
-//CRUD Books By User page
+//CRUD Reviews By Admin page
 router.get('/crudReviews', (req, res) =>
-  res.render('crudReviews', { review: [] })
+  res.render('crudReviews', { reviews: [], user:req.user, book: []})
+);
+
+//CRUD reviews by User page
+router.get('/bookReviews', (req, res) =>
+  res.render('bookReviews', {reviews: [], user: req.user, book: []})
 );
 
 //Update/ Edit Users page

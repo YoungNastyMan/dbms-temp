@@ -1,4 +1,5 @@
-<%- include('header') %>
+  <%- include('header') %>
+  <link rel="stylesheet" href="/stylesheets/styleForBookReview.css">
 
 <% if(book.image) { %> 
 <div class="col-sm-2 my-2">
@@ -16,8 +17,6 @@
   <td style="color: black; font-weight: bold">
     About: <%= book.description %>
   </td>
-  <br />
-  <br />
   <br />
   <br />
   <td>Number of pages: <%= book.pagecount %></td>
@@ -38,23 +37,23 @@
   <br />
 </tr>
 %>
-<!--<form action="/books/get-reviews" method="post">
-    <button class = "button btn-default" value="" onclick="" type="button">View reviews</button>
-</form>-->
-<form action="/books/get-reviews" method="post">
-  <input type="hidden" name="bookId" value="<%= book._id %>" readonly/>
-  <input type="submit" name="<% book.id %>" value="Get reviews" />
+<% if(!user) { %>
+  <form role="form" action="/books/get-reviews-for-buyer" method="post" style="max-width: 300px">
+    <input type="hidden" name="bookTitle" value="<%= book.title %>" readonly/>
+    <button type="submit" >Read reviews</button>
+    <br>
+    <br>
+  </form>
+<% } else { %>
+
+<form role="form" action="/books/get-reviews-for-buyer" method="post" style="max-width: 300px">
+  <input type="hidden" name="bookTitle" value="<%= book.title %>" readonly/>
+  <button type="submit">CRUD reviews</button>
   <br>
   <br>
 </form>
+<% } %>
 <% if(user) { %>
-<form action="/books/write-reviews" method="post">
-  <input type="hidden" name="bookId" value="<%= book._id %>" readonly/>
-  <input type="hidden" name="userId" value="<%= user._id %>" readonly/>
-  <input type="submit" name="<% book.id %>" value="Post reviews" />
-  <br>
-  <br>
-</form>
 <form id = "addToCart">
   <input type="hidden" name="bookTitle" value="<%= book.title %>" readonly/>
   <input type="hidden" name="username" value="<%= user.username %>" readonly/> 

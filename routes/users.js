@@ -52,7 +52,7 @@ router.post('/register', (req, res) => {
 
 
 //update user profile
-router.put('/updateUser', (req, res, next) => {
+router.post('/updateUser', (req, res, next) => {
   console.log("hi");
   //console.log(req.body.user);
   console.log(req.body.first_name);
