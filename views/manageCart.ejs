@@ -2,47 +2,12 @@
 <%- include('logout'); -%>
 <link rel="stylesheet" href="/stylesheets/style.css">
 <h4>CRUD - BOOKS</h4>
-<section class="insert">
-    <h3>Add Book</h3>
-    <form id="bookCreateBySeller">
-        
-        <div class="form-group">
-            <input class="form-control" type="text" name="title" placeholder="Enter Book Title" />
-        </div>
-        <div class="form-group">
-            <input class="form-control" type = "text" name = "id"  placeholder="Enter Seller Username">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="text" name="author" placeholder="Enter Author Name" />
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="text" name="categories" placeholder="Enter Categories" />
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="text" name="publisher" placeholder="Enter Publisher" />
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="number" name="publishedYear" placeholder="Enter Published Year" />
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="number" name="price" placeholder="Enter Price" />
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="text" name="language" placeholder="Enter Language" />
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="number" name="pagecount" placeholder="Enter Page Count" />
-        </div>
-        <button class="btn btn-default" type="submit">Submit</button>
-    </form>
-</section>
 <section class="get">
     <h3>View Cart</h3>
-     <form name="viewCart" method="get" action="/cart/getUserCart">
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search books" id="textBox" name="searchText">
-            <div class="input-group-btn">
-                <button id="sub" class="btn btn-default" type="submit">Search
+     <form role="form" name="viewCart" method="get" action="/users/viewCart">
+            <input type="hidden" class="form-control"  value= "<%= user.username %>" name="username">
+            
+                <button id="sub" class="btn btn-default" type="submit">Press To View Cart Items
                 </button>
             </div>
         </div>
@@ -52,23 +17,39 @@
      <% for(var i=0; i < cart.length; i++) { %>
        <tr>
          <br> 
-         <td><b>Book <%= i+1 %></b></td>
+         <td><b>Cart Item <%= i+1 %></b></td>
          <br>
-         <td>Title : </td>
-         <td><%= cart[i].title %></td>  
+         <td>Book Title : </td>
+         <td><%= cart[i].book %></td>  
+         <br>
+         <td>Quantity : </td>
+         <td><%= cart[i].quantity %></td>
+         <br>
        </tr>
     <% } 
     }%>
 
     </div>
 </section>
-<section class="delete">
-    <h3>Delete Book By Title:</h3>
-    <form id="bookDeleteByTitle">
+<section class="clearCart">
+    <h3>Clear Cart</h3>
+    <form id="clearCart">
         <div class="form-group">
-            <input class="form-control" type="text" name="title" placeholder="Enter Title of Book" />
+            <input type="hidden" class="form-control"  value= "<%= user.username %>" name="username">
+            <button id="sub" class="btn btn-default" type="submit">Press To Clear Cart
+            </button>
         </div>
-        <button class="btn btn-default" type="submit">DELETE</button>
     </form>
 </section>
+<section class="Buy">
+    <h3>Buy Items In Cart</h3>
+    <form id="addToOrders">
+        <div class="form-group">
+            <input type="hidden" class="form-control"  value= "<%= user.username %>" name="username">
+            <button id="sub" class="btn btn-default" type="submit">Press To Buy Cart Items
+            </button>
+        </div>
+    </form>
+</section>
+
 <%- include('footer'); -%>

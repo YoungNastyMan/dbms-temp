@@ -14,12 +14,13 @@ $(document).ready(function () {
       }),
       success: data => {
         alert(data.message);
+
       }
     });
   });
 
-   //Add to Cart
-   $("#addToCart").on("submit", e => {
+  //Add to Cart
+  $("#addToCart").on("submit", e => {
     e.preventDefault();
 
     const bookTitle = $(e.currentTarget).find("[name=bookTitle]").val();
@@ -29,13 +30,84 @@ $(document).ready(function () {
     // alert(username);
 
     $.ajax({
-      url: apiServer +  "/cart/addToCart",
+      url: apiServer + "/cart/addToCart",
       method: "POST",
       contentType: "application/json",
-      data: JSON.stringify({ book: bookTitle, buyer : username, quantity : 1 }),
-      success: data =>  alert(data.status)
-        
-        });
+      data: JSON.stringify({ book: bookTitle, buyer: username, quantity: 1 }),
+      success: data => {
+        alert(data.status)
+
+      }
+    });
+  });
+
+  //Empty Cart
+  $("#clearCart").on("submit", e => {
+    e.preventDefault();
+
+    const username = $(e.currentTarget).find("[name=username]").val();
+
+
+    $.ajax({
+      url: apiServer + "/cart/clearCart?q=" + username,
+      method: "DELETE",
+      contentType: "application/json",
+      success: data => {
+        alert(data.status)
+
+      }
+    });
+  });
+
+  //Empty Cart
+  $("#addToOrders").on("submit", e => {
+    e.preventDefault();
+
+
+    const username = $(e.currentTarget).find("[name=username]").val();
+    // const book = $(e.currentTarget).find("[name=book]").val();
+    // const quantity = $(e.currentTarget).find("[name=quantity]").val();
+
+    // alert(cart[0].buyer);
+    // alert(book); 
+    // alert(quantity);
+    alert(username);
+
+    $.ajax({
+      url: apiServer + "/cart/getUserCart?q=" + username,
+      method: "GET",
+      contentType: "application/json",
+      success: data => {
+        // alert(data[1].book);
+        data.forEach(element => {
+          // alert(element.book);
+          // alert(element.buyer);
+          // alert(element.quantity);
+          $.ajax({
+            url: apiServer + "/order/addToOrder",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify ({
+              buyer: element.buyer,
+              book: element.book,
+              quantity: element.quantity
+            }),
+            success: data => {
+              $.ajax({
+                url: apiServer + "/cart/clearCart?q=" + username,
+                method: "DELETE",
+                contentType: "application/json",
+                success: data => {
+                  
+                }
+              })
+            }
+          })
+
+        })
+        alert("Added to Orders");
+      }
+    })
   });
 
   $("#userUpdateByAdmin").on("submit", event => {
@@ -80,6 +152,7 @@ $(document).ready(function () {
       }),
       success: data => {
         alert(data.status);
+
       }
     });
   });
@@ -104,6 +177,7 @@ $(document).ready(function () {
       data: JSON.stringify(values),
       success: data => {
         alert(data.status);
+
       }
     });
   });
@@ -126,6 +200,7 @@ $(document).ready(function () {
       data: JSON.stringify(values),
       success: data => {
         alert(data.status);
+
       }
     });
   });
@@ -488,7 +563,7 @@ $(document).ready(function () {
   //Search for books.
   $("#searchForm").on("submit", e => {
     e.preventDefault();
-    // location.reload();
+
     const searchTerm = $(e.currentTarget)
       .find("[name=searchText]")
       .val();
@@ -550,7 +625,7 @@ $(document).ready(function () {
     });
   });
 
- 
+
 
 
 });

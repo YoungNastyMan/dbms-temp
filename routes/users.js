@@ -188,6 +188,58 @@ router.put('/updateUser1', (req, res, next) => {
 
 })
 
+router.get('/viewCart', (req, res, next) => {
+  
+  // console.log('Get Cart');
+  // console.log("User", req.user.username);
+  var resultArray = [];
+  var cursor;
+
+  axios.get('http://localhost:5000/cart/getUserCart?q='+req.user.username)
+  .then(function (res) {
+    cursor = res.data;
+    console.log("Cursor",cursor);
+    cursor.forEach(function(doc,err) {
+        // assert(null,err);
+      //   console.log('doc');
+      //     console.log(doc.authors[0]);
+        resultArray.push(doc);
+    }) })
+    .then (
+    function() {
+    // console.log("SS", resultArray[3].title);
+    res.render('manageCart', {cart: resultArray, user : req.user});
+      });
+    
+});
+
+router.get('/addToOrders', (req, res, next) => {
+  
+  // console.log('Get Cart');
+  // console.log("User", req.user.username);
+  var resultArray = [];
+  var cursor;
+
+  axios.get('http://localhost:5000/cart/getUserCart?q='+req.user.username)
+  .then(function (res) {
+    cursor = res.data;
+    console.log("Cursor",cursor);
+    cursor.forEach(function(doc,err) {
+      console.log("SS", doc);    
+      resultArray.push(doc);
+    }) })
+    .then (
+    function() {
+    console.log("SS1", resultArray);
+      }).then(
+        resultArray.forEach(
+          (ele, err)
+        )
+      )
+      ;
+    
+});
+
 module.exports = router;
 
 

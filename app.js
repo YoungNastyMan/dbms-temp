@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const booksRouter = require('./routes/books');
+const cartRouter = require('./routes/cart');
 
 const app = express();
 
@@ -67,6 +68,7 @@ app.use((req, res, next) => {
     '/login',
     '/register',
     '/books'
+
   ];
   if (!req.user && !allowedUnauthenticatedRoutes.includes(req.path)) {
     next(createError(401));
@@ -78,6 +80,7 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/books', booksRouter);
+app.use('/cart', cartRouter);
 
 //We need to get rid of this and do something else entirely. This should never be connecting directly to the database.
 mongoose.connect('mongodb+srv://swapnil:swapnil123@dbmsprojectcluster-dq6c3.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.log('Error in DB connection : ' + err));
