@@ -66,7 +66,8 @@ app.use((req, res, next) => {
     '/',
     '/login',
     '/register',
-    '/books'
+    '/books',
+    '/bookReviews'
   ];
   if (!req.user && !allowedUnauthenticatedRoutes.includes(req.path)) {
     next(createError(401));
