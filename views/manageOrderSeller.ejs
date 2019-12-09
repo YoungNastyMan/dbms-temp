@@ -1,7 +1,7 @@
 <%- include('header'); -%>
 <%- include('logout'); -%>
 <link rel="stylesheet" href="/stylesheets/style.css">
-<h4>CRUD - BOOKS</h4>
+<h4>CRUD - ORDER SELLER</h4>
 <section class="get">
     <h3>View Order</h3>
      <form role="form" name="viewOrderSeller" method="get" action="/users/viewOrderSeller">
@@ -11,7 +11,7 @@
                 </button>
             </div>
         </div>
-    </form>
+    </form> 
     <div>   
      <% if(order) { %>
      <% for(var i=0; i < order.length; i++) { %>
@@ -28,18 +28,23 @@
          <td>Quantity : </td>
          <td><%= order[i].quantity %></td>
          <br>
+         <td>Bought By : </td>
+         <td><%= order[i].buyer %></td>
+         <br>
+         <td>Sold By : </td>
+         <td><%= order[i].seller %></td>
        </tr>
     <% } 
     }%>
 
     </div>
 </section>
-<section class="deleteOrderByID">
+<section class="deleteOrderById">
     <h3>Delete Order By ID</h3>
     <form id="deleteOrderByIDSeller">
         <div class="form-group">
             <input type="text" class="form-control" name="orderId" placeholder = "Enter Order Id">
-            <button id="sub" class="btn btn-default" type="submit">Press To Clear Book From Cart
+            <button id="sub" class="btn btn-default" type="submit">Press To Remove Order
             </button>
         </div>
     </form>

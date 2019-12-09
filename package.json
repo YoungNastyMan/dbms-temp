@@ -2,8 +2,8 @@
   "name": "bookstore",
   "version": "1.0.0",
   "description": "A simple online bookstore",
-  "repository": "git@github.com:YoungNastyMan/dbms-temp.git",
-  "author": "Anand Hegde <hegde.an@husky.neu.edu>",
+  "repository": "c",
+  "author": "c",
   "license": "MIT",
   "scripts": {
     "start": "npx nodemon ./bin/www"

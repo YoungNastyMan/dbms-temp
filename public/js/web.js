@@ -113,10 +113,11 @@ $(document).ready(function () {
 
 
   //Delete Order By ID
-  $("#deleteOrderByID").on("submit", e => {
+  $("#deleteOrderByIDSeller").on("submit", e => {
     e.preventDefault();
 
     const id = $(e.currentTarget).find("[name=orderId]").val();
+    // alert(id);
 
     // alert("ABC");
     // alert(id);
