@@ -59,7 +59,7 @@ router.post('/login', passport.authenticate('local'), (req, res, next) => {
 
 router.get('/bookPage', function(req, res) {
   var user = {};
-  res.render('bookPage', { book: [], user: user });
+  res.render('bookPage', { user: user, book: [] });
 });
 
 // //Update Profile page
@@ -82,6 +82,11 @@ router.get('/crudUsersTest', (req, res) =>
 //CRUD Books By User page
 router.get('/crudBooksBySeller', (req, res) =>
   res.render('crudBooksBySeller', { book: [], user: req.user })
+);
+
+//CRUD Books By Admin page
+router.get('/crudBooksByAdmin', (req, res) =>
+  res.render('crudBooksByAdmin', { book: [], user: req.user })
 );
 
 //CRUD Books By User page

@@ -5,9 +5,12 @@
 <section class="insert">
     <h3>Add Book</h3>
     <form id="bookCreateBySeller">
-        <input type = "hidden" name = "id" value = "<%= user.username %>">
+        
         <div class="form-group">
             <input class="form-control" type="text" name="title" placeholder="Enter Book Title" />
+        </div>
+        <div class="form-group">
+            <input class="form-control" type = "text" name = "id"  placeholder="Enter Seller Username">
         </div>
         <div class="form-group">
             <input class="form-control" type="text" name="author" placeholder="Enter Author Name" />
@@ -34,10 +37,15 @@
     </form>
 </section>
 <section class="get">
-    <h3>Get Books sold by seller:</h3>
-    <form role="form" action="/users/get-books" method="get" style="max-width: 300px">
-     <input type = "hidden" name = "username" value = "<%= user.username %>">
-     <button type="submit">Get Books sold by seller <%= user.username %></button>
+    <h3>Get Book By Keyword</h3>
+     <form id="searchForm1">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search books" id="textBox" name="searchText">
+            <div class="input-group-btn">
+                <button id="sub" class="btn btn-default" type="submit">Search
+                </button>
+            </div>
+        </div>
     </form>
     <div>   
      
@@ -54,9 +62,6 @@
          <br>
          <td>Categories : </td>
          <td><%= book[i].categories %></td>
-         <br>
-         <td>Seller : </td>
-         <td><%= book[i].seller %></td>
          <br>
          <td>Publisher : </td>
          <td><%= book[i].publisher %></td>
@@ -81,26 +86,28 @@
 <section class="update">
     <h3>Update Book Information By Title:</h3>
     <form id="bookUpdateBySeller"> 
-        <input type = "hidden" name = "id" value = "<%= user.username %>">
         <div class="form-group">
             <input class="form-control"  type="text" name="title" placeholder="Enter Title" />
         </div>
         <div class="form-group">
-            <input class="form-control"  type="text" name="categories" placeholder="Enter Categories" />
+            <input class="form-control"  type="text" name="id" placeholder="Enter New Seller Username" />
         </div>
         <div class="form-group">
-            <input class="form-control"  type="text" name="publisher" placeholder="Enter Publisher" />
+            <input class="form-control"  type="text" name="categories" placeholder="Enter New Categories" />
         </div>
         <div class="form-group">
-            <input class="form-control"  type="number" name="price" placeholder="Enter Price in USD"/>
+            <input class="form-control"  type="text" name="publisher" placeholder="Enter New Publisher" />
+        </div>
+        <div class="form-group">
+            <input class="form-control"  type="number" name="price" placeholder="Enter New Price in USD"/>
         </div>
         <div class="form-group">
             <input class="form-control"  type="number" name="publishedYear" placeholder="Enter New Published Year" />
         </div>
         <div class="form-group">
-           <input class="form-control" type="number" name="pagecount" placeholder="Enter Page Count" />
+           <input class="form-control" type="number" name="pagecount" placeholder="Enter New Page Count" />
         </div>
-        <button type="submit">Submit</button>
+        <button class="btn btn-default" type="submit">Submit</button>
     </form>
 </section>
 </section>
@@ -111,7 +118,7 @@
             <input type = "hidden" name = "username" value = "<%= user.username %>" readonly>
             <input class="form-control" type="text" name="title" placeholder="Enter Title of Book" />
         </div>
-        <button type="submit">DELETE</button>
+        <button class="btn btn-default" type="submit">DELETE</button>
     </form>
 </section>
 <%- include('footer'); -%>

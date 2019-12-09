@@ -176,14 +176,19 @@ router.get('/', (req, res, next) => {
         .then(function (res) {
             book = res.data;
             console.log("BOOK", book);
-            res.render('bookPage', { user: req.user, book: book });
+            
 
         })
+        .then (
+            function() {
+            
+                res.render('bookPage', { user: req.user, book: book });
+              });
         // .then(
         //     function () {
                 
         //     })
-            .catch(err =>  res.send({ status: 'failed', message: err }));
+            
 
 });
 

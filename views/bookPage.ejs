@@ -19,13 +19,15 @@
   <td>Published year: <%= book.publishedDate %></td>
   <br />
   <br />
-  <td>Price:<%= book.priceAmount%></td>
+  <td>Price: <%= book.price.amount%></td>
   <br />
   <br />
-  <td>Number of Pages:<%= book.pagecount %></td>
+  <td>Number of Pages: <%= book.pagecount %></td>
   <br />
   <br />
   <td>Categories: <%= book.categories %></td>
+  <br />
+  <br />
   <br />
 </tr>
 %>
@@ -34,6 +36,18 @@
 </form>-->
 <form action="/books/get-reviews" method="post">
   <input type="submit" name="<% book.id %>" value="Get reviews" />
+  <br>
+  <br>
 </form>
-<button class="button btn-default" type="submit">Add to cart</button>
+<% if(user) { %>
+<form id = "addToCart">
+  Add to Cart <br>
+  <input type="text" name="bookTitle" value="<%= book.title %>" readonly/>
+  <input type="hidden" name="bookId" value="<%= book._id %>" readonly/>
+  <input type="hidden" name="userId" value="<%= user._id %>" readonly/>
+  <br />
+  <br />
+  <button type="submit">Submit</button>
+</form>
+ <% } %>
 <%- include('footer') %>

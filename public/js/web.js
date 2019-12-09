@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   const apiServer = "http://localhost:5000";
 
   $("#userDelete").on("submit", event => {
@@ -255,7 +255,7 @@ $(document).ready(function() {
 
   $("#register").on("submit", event => {
     event.preventDefault();
-
+    // alert("HI");
     const user = {
       username: $(event.currentTarget)
         .find("[name=username]")
@@ -269,6 +269,9 @@ $(document).ready(function() {
       password: $(event.currentTarget)
         .find("[name=password]")
         .val(),
+      usertype: $(event.currentTarget)
+      .find("[name=usertype]")
+      .val(),  
       address: {
         address: $(event.currentTarget)
           .find("[name=address]")
@@ -287,51 +290,157 @@ $(document).ready(function() {
           .val()
       }
     };
-    $.ajax({
-      url: apiServer + "/user/register",
-      type: "POST",
-      contentType: "application/json",
-      data: JSON.stringify({
-        username: $(event.currentTarget)
-          .find("[name=username]")
-          .val(),
-        first_name: $(event.currentTarget)
-          .find("[name=first_name]")
-          .val(),
-        last_name: $(event.currentTarget)
-          .find("[name=last_name]")
-          .val(),
-        usertype: $(event.currentTarget)
-          .find("[name=usertype]")
-          .val(),
-        password: $(event.currentTarget)
-          .find("[name=password]")
-          .val(),
-        address: {
-          address: $(event.currentTarget)
-            .find("[name=address]")
+    // alert(user.usertype)
+    if (user.usertype === 'seller') {
+      $.ajax({
+        url: apiServer + "/user/register",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+          username: $(event.currentTarget)
+            .find("[name=username]")
             .val(),
-          pincode: $(event.currentTarget)
-            .find("[name=pincode]")
+          first_name: $(event.currentTarget)
+            .find("[name=first_name]")
             .val(),
-          city: $(event.currentTarget)
-            .find("[name=city]")
+          last_name: $(event.currentTarget)
+            .find("[name=last_name]")
             .val(),
-          state: $(event.currentTarget)
-            .find("[name=state]")
+          usertype: $(event.currentTarget)
+            .find("[name=usertype]")
             .val(),
-          country: $(event.currentTarget)
-            .find("[name=country]")
-            .val()
+          password: $(event.currentTarget)
+            .find("[name=password]")
+            .val(),
+          seller:{
+              sellerAgreement: true,
+            },  
+          address: {
+            address: $(event.currentTarget)
+              .find("[name=address]")
+              .val(),
+            pincode: $(event.currentTarget)
+              .find("[name=pincode]")
+              .val(),
+            city: $(event.currentTarget)
+              .find("[name=city]")
+              .val(),
+            state: $(event.currentTarget)
+              .find("[name=state]")
+              .val(),
+            country: $(event.currentTarget)
+              .find("[name=country]")
+              .val()
+          }
+        }),
+        success: data => {
+          alert(data.status);
+          setTimeout(2000, () => {
+            window.location = "/";
+          });
         }
-      }),
-      success: data => {
-        alert(data.status);
-        setTimeout(2000, () => {
-          window.location = "/";
-        });
-      }
-    });
+      });
+    }//if end
+    else if (user.usertype === 'buyer') {
+      $.ajax({
+        url: apiServer + "/user/register",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+          username: $(event.currentTarget)
+            .find("[name=username]")
+            .val(),
+          first_name: $(event.currentTarget)
+            .find("[name=first_name]")
+            .val(),
+          last_name: $(event.currentTarget)
+            .find("[name=last_name]")
+            .val(),
+          usertype: $(event.currentTarget)
+            .find("[name=usertype]")
+            .val(),
+          password: $(event.currentTarget)
+            .find("[name=password]")
+            .val(),
+          buyer:{
+              buyerAgreement: true,
+            },  
+          address: {
+            address: $(event.currentTarget)
+              .find("[name=address]")
+              .val(),
+            pincode: $(event.currentTarget)
+              .find("[name=pincode]")
+              .val(),
+            city: $(event.currentTarget)
+              .find("[name=city]")
+              .val(),
+            state: $(event.currentTarget)
+              .find("[name=state]")
+              .val(),
+            country: $(event.currentTarget)
+              .find("[name=country]")
+              .val()
+          }
+        }),
+        success: data => {
+          alert(data.status);
+          setTimeout(2000, () => {
+            window.location = "/";
+          });
+        }
+      });
+    }//if end
+    else if (user.usertype === 'admin') {
+      $.ajax({
+        url: apiServer + "/user/register",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+          username: $(event.currentTarget)
+            .find("[name=username]")
+            .val(),
+          first_name: $(event.currentTarget)
+            .find("[name=first_name]")
+            .val(),
+          last_name: $(event.currentTarget)
+            .find("[name=last_name]")
+            .val(),
+          usertype: $(event.currentTarget)
+            .find("[name=usertype]")
+            .val(),
+          password: $(event.currentTarget)
+            .find("[name=password]")
+            .val(),
+          admin:{
+              admin_key: 'I am admin',
+            },  
+          address: {
+            address: $(event.currentTarget)
+              .find("[name=address]")
+              .val(),
+            pincode: $(event.currentTarget)
+              .find("[name=pincode]")
+              .val(),
+            city: $(event.currentTarget)
+              .find("[name=city]")
+              .val(),
+            state: $(event.currentTarget)
+              .find("[name=state]")
+              .val(),
+            country: $(event.currentTarget)
+              .find("[name=country]")
+              .val()
+          }
+        }),
+        success: data => {
+          alert(data.status);
+          setTimeout(2000, () => {
+            window.location = "/";
+          });
+        }
+      });
+    }//if end
   });
 
   //Search for books.
@@ -351,11 +460,11 @@ $(document).ready(function() {
         const markup = `<div class="col-sm-2 my-2"><div data-id=${book._id} class="card book">
          <img class="card-img-top" src="${thumbnail}">
           <div class="card-body"><h6 class="card-subtitle">${
-            book.title
+          book.title
           }</h6><p class="mb-2 text-muted card-text">${book.authors.join(
-          ", "
-        )}</p></div></div></div>`;
-        
+            ", "
+          )}</p></div></div></div>`;
+
         searchContainer.append(markup);
       });
       $('.book').on("click", e => {
@@ -383,9 +492,9 @@ $(document).ready(function() {
         alert("Login failed. Please try again.");
       },
       success: (user) => {
-        if(user.usertype === 'admin'
-            || user.usertype === 'seller'
-            || user.usertype === 'moderator') {
+        if (user.usertype === 'admin'
+          || user.usertype === 'seller'
+          || user.usertype === 'moderator') {
           window.location = "/loginSuccess";
         } else {
           window.location = "/loginSuccess";
@@ -393,4 +502,35 @@ $(document).ready(function() {
       }
     });
   });
+
+  //Login form
+  $("#addToCart").on("submit", e => {
+    e.preventDefault();
+
+    const bookId = $(e.currentTarget).find("[name=bookId]").val();
+    const userId = $(e.currentTarget).find("[name=userId]").val();
+    alert("Info");
+    alert(bookId);
+    alert(userId);
+
+    // $.ajax({
+    //   url: "/login",
+    //   method: "get",
+    //   data: { username: username, password: password },
+    //   error: err => {
+    //     alert("Login failed. Please try again.");
+    //   },
+    //   success: (user) => {
+    //     if(user.usertype === 'admin'
+    //         || user.usertype === 'seller'
+    //         || user.usertype === 'moderator') {
+    //       window.location = "/loginSuccess";
+    //     } else {
+    //       window.location = "/loginSuccess";
+    //     }
+    //   }
+    // });
+  });
+
+
 });
