@@ -130,6 +130,81 @@ $(document).ready(function () {
     });
   });
 
+  $("#reviewDelete").on("submit", event => {
+    event.preventDefault();
+    // var inputs = $('#userDelete :input');
+    var values = {
+      book: $(event.currentTarget)
+        .find("[name=bookToDelete]")
+        .val(),
+      buyer: $(event.currentTarget)
+        .find("[name=reviewerUserName]")
+        .val()
+    };
+    // alert(values.title);
+    $.ajax({
+      url: apiServer + "/review/deleteReview",
+      type: "DELETE",
+      contentType: "application/json",
+      data: JSON.stringify(values),
+      success: data => {
+        alert(data.status);
+      }
+    });
+  });
+
+  $("#reviewAdd").on("submit", event => {
+    event.preventDefault();
+    // var inputs = $('#userDelete :input');
+    var values = {
+      book: $(event.currentTarget)
+        .find("[name=bookTitle]")
+        .val(),
+      buyer: $(event.currentTarget)
+        .find("[name=reviewer]")
+        .val(),
+      review: $(event.currentTarget)
+        .find("[name=review]")
+        .val()
+    };
+    // alert(values.title);
+    $.ajax({
+      url: apiServer + "/review/addReview",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(values),
+      success: data => {
+        alert(data.status);
+      }
+    });
+  });
+
+  $("#reviewUpdate").on("submit", event => {
+    event.preventDefault();
+    // var inputs = $('#userDelete :input');
+    var values = {
+      book: $(event.currentTarget)
+        .find("[name=bookTitle]")
+        .val(),
+      buyer: $(event.currentTarget)
+        .find("[name=reviewer]")
+        .val(),
+      review: $(event.currentTarget)
+        .find("[name=review]")
+        .val()
+    };
+    // alert(values.title);
+    $.ajax({
+      url: apiServer + "/review/editReview",
+      type: "PUT",
+      contentType: "application/json",
+      data: JSON.stringify(values),
+      success: data => {
+        alert(data.status);
+      }
+    });
+  });
+
   $("#bookUpdateBySeller").on("submit", event => {
     event.preventDefault();
     // var values = {

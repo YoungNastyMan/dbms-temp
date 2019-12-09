@@ -1,23 +1,19 @@
 <%- include('header') %>
-
+<link rel="stylesheet" href="/stylesheets/style.css">
 <% if(book.image) { %> 
 <div class="col-sm-2 my-2">
 <img class="card-img-top" src=" <%= book.image.thumbnail %> ">
 </div>
 <% } %>
 <tr>
-  
   <br />
   <br />
-  
   <th style="font-weight: bold">Book title: <%= book.title %></th>
   <br />
   <br />
   <td style="color: black; font-weight: bold">
     About: <%= book.description %>
   </td>
-  <br />
-  <br />
   <br />
   <br />
   <td>Number of pages: <%= book.pagecount %></td>
@@ -35,27 +31,51 @@
   <td>Categories: <%= book.categories %></td>
   <br />
   <br />
-  <br />
 </tr>
 %>
 <!--<form action="/books/get-reviews" method="post">
     <button class = "button btn-default" value="" onclick="" type="button">View reviews</button>
 </form>-->
-<form action="/books/get-reviews" method="post">
-  <input type="hidden" name="bookId" value="<%= book._id %>" readonly/>
-  <input type="submit" name="<% book.id %>" value="Get reviews" />
+<form role="form" action="/books/get-reviews-for-buyer" method="post" style="max-width: 300px">
+  <input type="hidden" name="bookTitle" value="<%= book.title %>" readonly/>
+  <button type="submit">Get reviews</button>
   <br>
   <br>
 </form>
 <% if(user) { %>
-<form action="/books/write-reviews" method="post">
-  <input type="hidden" name="bookId" value="<%= book._id %>" readonly/>
-  <input type="hidden" name="userId" value="<%= user._id %>" readonly/>
-  <input type="submit" name="<% book.id %>" value="Post reviews" />
-  <br>
-  <br>
+<section class="addReview">
+  <h6>Write your book review:</h6>
+    <form id="reviewAdd">
+      <div class="form-group">
+        <input class="form-control" type="hidden" value="<%= user.username%>" name="reviewer"/>
+        <input class="form-control" type="hidden" name="bookTitle" value="<%= book.title %>" />
+        <input class="form-control" type="text" name="review" placeholder="Type your review here" />
+      </div>
+        <button type="submit">Add review</button><br /><br />
+    </form>
+</section>
+
+<section class="editReview">
+  <h6>Write your book review:</h6>
+    <form id="reviewUpdate">
+      <div class="form-group">
+        <input class="form-control" type="hidden" value="<%= user.username%>" name="reviewer"/>
+        <input class="form-control" type="hidden" name="bookTitle" value="<%= book.title %>" />
+        <input class="form-control" type="text" name="review" placeholder="Type your review here" />
+      </div>
+        <button type="submit">Change your review</button><br /><br />
+    </form>
+</section>
+
+<form id="reviewDelete">
+  <div class="form-group">
+    <input class="form-control" type="hidden" value="<%= user.username %>" name="reviewerUserName"/>
+    <input class="form-control" type="hidden" name="bookToDelete" value="<%= book.title %>" />
+  </div>
+    <button type="submit">Delete your review</button><br /><br />
 </form>
-<form id = "addToCart">
+
+<br /><br /><form id = "addToCart">
   <input type="hidden" name="bookTitle" value="<%= book.title %>" readonly/>
   <input type="hidden" name="username" value="<%= user.username %>" readonly/> 
   <button type="submit">Add To Cart</button>

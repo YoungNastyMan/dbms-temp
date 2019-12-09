@@ -41,6 +41,51 @@ router.post('/bookPage', (req, res) => {
     res.render('bookPage', { book: req.body, user: req.user })
 });
 
+router.post('/get-reviews', async(req, res) => {
+    var reviewsArray = [];
+    var cursor;
+    let bookRes;
+
+    try {
+    //Getting book by title to fetch its ID
+    //console.log(req.body.bookForReviews);
+    bookRes = await axios.get('http://localhost:5000/book/booksByTitle?q='+ req.body.bookForReviews);
+    let revRes = await axios.get('http://localhost:5000/review/findReviewByBook?q=' + req.body.bookForReviews);
+        cursor = revRes.data;
+        cursor.forEach(function (doc, err) {
+         // console.log(doc.title);
+            reviewsArray.push(doc);
+        })
+        //console.log(reviewsArray[0].review);
+    }
+    catch(e) {
+        console.log(e); 
+    }
+    //console.log(bookRes.data[0].title);
+    res.render('crudReviews', {reviews: reviewsArray, user: req.user, book: bookRes.data[0]});
+});
+
+router.post('/get-reviews-for-buyer', async(req, res) => {
+    var reviewsArray = [];
+    var cursor;
+    let bookRes;
+
+    try {
+    //console.log("Button press = " + req.body.bookTitle);
+    bookRes = await axios.get('http://localhost:5000/book/booksByTitle?q='+ req.body.bookTitle);
+    let revRes = await axios.get('http://localhost:5000/review/findReviewByBook?q=' + req.body.bookTitle);
+        cursor = revRes.data;
+        cursor.forEach(function (doc, err) {
+          //console.log(doc.title);
+            reviewsArray.push(doc);
+        })
+    }
+    catch(e) {
+        console.log(e); 
+    }
+    res.render('bookReviews', {reviews: reviewsArray, user: req.user, book: bookRes.data[0]});
+});
+
 /*
 router.post('/register', (req, res) => {
     let user = req.body;

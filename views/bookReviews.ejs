@@ -1,0 +1,23 @@
+<%- include('header') %>
+<link rel="stylesheet" href="/stylesheets/style.css">
+<section class="get">
+    <h3>Reviews:</h3>
+    <div>   
+        <br />
+        <br />
+        <% if(book.title) {%>
+     <h4>Reviews for <u><%= book.title %>:</u></h4>   
+     <% for(var i=0; i < reviews.length; i++) { %>
+       <tr>
+         <td><b>Review <%= i+1 %>:</b></td>
+         <td><%= reviews[i].review %></td><br />
+         <td>--<%= reviews[i].buyer %></td>
+         <br /><br />
+       </tr>
+    <% }  } %>
+
+    </div>
+</section>
+
+
+<%- include('footer'); -%>
