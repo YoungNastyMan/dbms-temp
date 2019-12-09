@@ -48,6 +48,9 @@
           <a class="nav-item nav-link" href="/manageCart">Manage Cart<span class="sr-only"></span></a>
           <a class="nav-item nav-link" href="/manageOrder">Manage Order<span class="sr-only"></span></a>
            <% } %> 
+           <% if(user.usertype === 'seller') { %>
+          <a class="nav-item nav-link" href="/manageOrderSeller">Manage Order (Seller)<span class="sr-only"></span></a>
+           <% } %> 
           <% if(user.usertype !== 'buyer') { %>
           <a class="nav-item nav-link" href="/loginSuccess">User Access</a>
           <% } %>

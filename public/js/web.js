@@ -28,17 +28,47 @@ $(document).ready(function () {
     // alert("Info");
     // alert(bookTitle);
     // alert(username);
-
     $.ajax({
-      url: apiServer + "/cart/addToCart",
-      method: "POST",
+      url: apiServer + "/book/booksByTitle?q=" + bookTitle,
+      method: "GET",
       contentType: "application/json",
-      data: JSON.stringify({ book: bookTitle, buyer: username, quantity: 1 }),
       success: data => {
-        alert(data.status)
+        // alert("LL");
+        // alert(data[0].seller);
+        $.ajax({
+          url: apiServer + "/user/id?q=" + data[0].seller,
+          method: "GET",
+          contentType: "application/json",
+          success: data1 => {
+            // alert(data1[0].username);
+            // alert(bookTitle);
+            // alert(username);
+           
+            $.ajax({
+              url: apiServer + "/cart/addToCart",
+              method: "POST",
+              contentType: "application/json",
+             
+              data: JSON.stringify({
+                book: bookTitle,
+                buyer: username,
+                quantity: 1,
+                seller: data1[0].username
+              }),
+              success: data => {
+                alert(data.status)
+
+              }
+            })
+
+          }
+
+        })
 
       }
-    });
+
+    })
+
   });
 
   //Empty Cart
@@ -65,7 +95,7 @@ $(document).ready(function () {
 
     const username = $(e.currentTarget).find("[name=username]").val();
     const title = $(e.currentTarget).find("[name=title]").val();
-     
+
     // alert(username);
     // alert(title);
 
@@ -73,7 +103,7 @@ $(document).ready(function () {
       url: apiServer + "/cart/deleteBooksFromCart",
       method: "DELETE",
       contentType: "application/json",
-      data : JSON.stringify({buyer : username, book : title}),
+      data: JSON.stringify({ buyer: username, book: title }),
       success: data => {
         alert(data.status)
 
@@ -85,9 +115,9 @@ $(document).ready(function () {
   //Delete Order By ID
   $("#deleteOrderByID").on("submit", e => {
     e.preventDefault();
-    
+
     const id = $(e.currentTarget).find("[name=orderId]").val();
-    
+
     // alert("ABC");
     // alert(id);
 
@@ -133,7 +163,8 @@ $(document).ready(function () {
             data: JSON.stringify({
               buyer: element.buyer,
               book: element.book,
-              quantity: element.quantity
+              quantity: element.quantity,
+              seller : element.seller
             }),
             success: data => {
               $.ajax({

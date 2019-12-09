@@ -14,6 +14,9 @@
   <% }
    if(user.usertype === 'seller') { %>
     <a href="\crudBooksBySeller">CRUD Books</a>
+    <br>
+    <br>
+    <a href="\manageOrderSeller">Manage Order (Seller)</a>
   <% }
   if(user.usertype === 'moderator') { %>
     <a href="\crudReviews">Read / Delete reviews <% user.username %></a>

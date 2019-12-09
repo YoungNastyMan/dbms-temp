@@ -83,7 +83,7 @@ app.use('/books', booksRouter);
 app.use('/cart', cartRouter);
 
 //We need to get rid of this and do something else entirely. This should never be connecting directly to the database.
-mongoose.connect('mongodb+srv://swapnil:swapnil123@dbmsprojectcluster-dq6c3.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.log('Error in DB connection : ' + err));
+mongoose.connect('mongodb+srv://deepak:deepak123@databaseforbookapi-gzios.mongodb.net/BookWebsite?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.log('Error in DB connection : ' + err));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

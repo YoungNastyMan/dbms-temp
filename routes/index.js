@@ -83,6 +83,12 @@ router.get('/manageOrder', function(req, res, next) {
   res.render('manageOrder', { order: [], user: req.user });
 });
 
+/*GET manage order Seller */
+router.get('/manageOrderSeller', function(req, res, next) {
+  //console.log(req.user);
+  res.render('manageOrderSeller', { order: [], user: req.user });
+});
+
 //CRUD Users page
 router.get('/crudUsers', (req, res) => res.render('crudUsers'));
 
