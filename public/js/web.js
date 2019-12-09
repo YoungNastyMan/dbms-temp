@@ -18,6 +18,26 @@ $(document).ready(function () {
     });
   });
 
+   //Add to Cart
+   $("#addToCart").on("submit", e => {
+    e.preventDefault();
+
+    const bookTitle = $(e.currentTarget).find("[name=bookTitle]").val();
+    const username = $(e.currentTarget).find("[name=username]").val();
+    // alert("Info");
+    // alert(bookTitle);
+    // alert(username);
+
+    $.ajax({
+      url: apiServer +  "/cart/addToCart",
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({ book: bookTitle, buyer : username, quantity : 1 }),
+      success: data =>  alert(data.status)
+        
+        });
+  });
+
   $("#userUpdateByAdmin").on("submit", event => {
     event.preventDefault();
     const user = {
@@ -79,6 +99,28 @@ $(document).ready(function () {
     // alert(values.title);
     $.ajax({
       url: apiServer + "/book/deleteBook",
+      type: "DELETE",
+      contentType: "application/json",
+      data: JSON.stringify(values),
+      success: data => {
+        alert(data.status);
+      }
+    });
+  });
+
+  $("#bookDeleteByTitle").on("submit", event => {
+    event.preventDefault();
+    // var inputs = $('#userDelete :input');
+    var values = {
+
+      title: $(event.currentTarget)
+        .find("[name=title]")
+        .val()
+    };
+    // alert(values.seller);
+    // alert(values.title);
+    $.ajax({
+      url: apiServer + "/book/deleteBookByTitle?q=" + values.title,
       type: "DELETE",
       contentType: "application/json",
       data: JSON.stringify(values),
@@ -270,8 +312,8 @@ $(document).ready(function () {
         .find("[name=password]")
         .val(),
       usertype: $(event.currentTarget)
-      .find("[name=usertype]")
-      .val(),  
+        .find("[name=usertype]")
+        .val(),
       address: {
         address: $(event.currentTarget)
           .find("[name=address]")
@@ -312,9 +354,9 @@ $(document).ready(function () {
           password: $(event.currentTarget)
             .find("[name=password]")
             .val(),
-          seller:{
-              sellerAgreement: true,
-            },  
+          seller: {
+            sellerAgreement: true,
+          },
           address: {
             address: $(event.currentTarget)
               .find("[name=address]")
@@ -362,9 +404,9 @@ $(document).ready(function () {
           password: $(event.currentTarget)
             .find("[name=password]")
             .val(),
-          buyer:{
-              buyerAgreement: true,
-            },  
+          buyer: {
+            buyerAgreement: true,
+          },
           address: {
             address: $(event.currentTarget)
               .find("[name=address]")
@@ -412,9 +454,9 @@ $(document).ready(function () {
           password: $(event.currentTarget)
             .find("[name=password]")
             .val(),
-          admin:{
-              admin_key: 'I am admin',
-            },  
+          admin: {
+            admin_key: 'I am admin',
+          },
           address: {
             address: $(event.currentTarget)
               .find("[name=address]")
@@ -450,6 +492,11 @@ $(document).ready(function () {
     const searchTerm = $(e.currentTarget)
       .find("[name=searchText]")
       .val();
+    searchTerm.trim();
+    if (searchTerm === '') {
+      var curBook = [];
+      res.render('search2', { book: curBook, user: req.user });
+    }
     $.get(apiServer + "/book/search?q=" + searchTerm, res => {
       $("#searchResultsContainer").empty();
       const searchContainer = $("#searchResultsContainer");
@@ -497,40 +544,13 @@ $(document).ready(function () {
           || user.usertype === 'moderator') {
           window.location = "/loginSuccess";
         } else {
-          window.location = "/loginSuccess";
+          window.location = "/";
         }
       }
     });
   });
 
-  //Login form
-  $("#addToCart").on("submit", e => {
-    e.preventDefault();
-
-    const bookId = $(e.currentTarget).find("[name=bookId]").val();
-    const userId = $(e.currentTarget).find("[name=userId]").val();
-    alert("Info");
-    alert(bookId);
-    alert(userId);
-
-    // $.ajax({
-    //   url: "/login",
-    //   method: "get",
-    //   data: { username: username, password: password },
-    //   error: err => {
-    //     alert("Login failed. Please try again.");
-    //   },
-    //   success: (user) => {
-    //     if(user.usertype === 'admin'
-    //         || user.usertype === 'seller'
-    //         || user.usertype === 'moderator') {
-    //       window.location = "/loginSuccess";
-    //     } else {
-    //       window.location = "/loginSuccess";
-    //     }
-    //   }
-    // });
-  });
+ 
 
 
 });

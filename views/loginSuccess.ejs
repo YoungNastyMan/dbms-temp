@@ -4,12 +4,7 @@
 
   <h2>Welcome <%= user.first_name %></h2>
 
-<a href="\updateUser">Update Profile</a>
-<br>
 
-<br>
-<a href="\viewProfile">View Profile Information</a>
-<br>
 <br>
   <% if(user.usertype === 'admin') { %>
     <a href="\crudUsersTest">CRUD Users</a>

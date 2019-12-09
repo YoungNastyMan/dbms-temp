@@ -71,6 +71,12 @@ router.get('/viewProfile', function(req, res, next) {
   res.render('viewProfile', { user: req.user });
 });
 
+/*GET manage cart */
+router.get('/manageCart', function(req, res, next) {
+  //console.log(req.user);
+  res.render('manageCart', { cart: [], user: req.user });
+});
+
 //CRUD Users page
 router.get('/crudUsers', (req, res) => res.render('crudUsers'));
 

@@ -5,6 +5,9 @@ var router = express.Router();
 
 router.post('/search', (req, res) => {
     console.log("SS", req.user);
+    if(req.body.searchText.trim() === '' ) {
+        res.render('crudBooksByAdmin', { book: resultArray, user: req.user });
+    }
     var resultArray = [];
     var cursor;
     axios.get("http://localhost:5000/book/search?q=" + req.body.searchText)
@@ -14,7 +17,7 @@ router.post('/search', (req, res) => {
             cursor = res.data;
             // console.log(cursor);
             cursor.forEach(function (doc, err) {
-                // console.log(doc.title);
+                console.log("DOC",doc.seller);
                 resultArray.push(doc);
             })
 
@@ -23,7 +26,7 @@ router.post('/search', (req, res) => {
             function () {
                 // console.log("Here", resultArray[0].title);
 
-                res.render('search2', { book: resultArray, user: req.user });
+                res.render('crudBooksByAdmin', { book: resultArray, user: req.user });
             }
         )
 });

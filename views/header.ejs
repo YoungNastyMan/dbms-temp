@@ -36,12 +36,20 @@
         <% if(!user
               || user.usertype == 'buyer') { %>}
           <a class="nav-item nav-link" href="/">Home <span class="sr-only"></span></a>
+          
           <% } %>
           <% if(!user) { %>
           <a class="nav-item nav-link" href="/login">Login</a>
           <a class="nav-item nav-link" href="/register">Sign up</a>
           <% } else { %>
-          <a class="nav-item nav-link" href="/logout">Logout</a>
+           <a class="nav-item nav-link" href="/logout">Logout</a>
+          <a class="nav-item nav-link" href="/viewProfile">Profile</a>
+          <% if(user.usertype === 'buyer') { %>
+          <a class="nav-item nav-link" href="/manageCart">Manage Cart <span class="sr-only"></span></a>
+           <% } %> 
+          <% if(user.usertype !== 'buyer') { %>
+          <a class="nav-item nav-link" href="/loginSuccess">User Access</a>
+          <% } %>
           <% } %>
         </div>
       </div>
