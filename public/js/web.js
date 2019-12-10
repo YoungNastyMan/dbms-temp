@@ -14,6 +14,7 @@ $(document).ready(function () {
       }),
       success: data => {
         alert(data.message);
+        location.reload();
 
       }
     });
@@ -56,7 +57,8 @@ $(document).ready(function () {
                 seller: data1[0].username
               }),
               success: data => {
-                alert(data.status)
+                alert(data.status);
+                location.reload();
 
               }
             })
@@ -83,7 +85,8 @@ $(document).ready(function () {
       method: "DELETE",
       contentType: "application/json",
       success: data => {
-        alert(data.status)
+        alert(data.status);
+        location.reload();
 
       }
     });
@@ -105,7 +108,8 @@ $(document).ready(function () {
       contentType: "application/json",
       data: JSON.stringify({ buyer: username, book: title }),
       success: data => {
-        alert(data.status)
+        alert(data.status);
+        location.reload();
 
       }
     });
@@ -127,7 +131,8 @@ $(document).ready(function () {
       method: "DELETE",
       contentType: "application/json",
       success: data => {
-        alert(data.status)
+        alert(data.status);
+        location.reload();
 
       }
     });
@@ -181,6 +186,8 @@ $(document).ready(function () {
 
         })
         alert("Added to Orders");
+        location.reload();
+        
       }
     })
   });
@@ -227,7 +234,7 @@ $(document).ready(function () {
       }),
       success: data => {
         alert(data.status);
-
+        location.reload();
       }
     });
   });
@@ -261,7 +268,7 @@ $(document).ready(function () {
       data: JSON.stringify(user),
       success: data => {
         alert(data.status);
-
+        location.reload();
       }
     });
   });
@@ -287,7 +294,7 @@ $(document).ready(function () {
       data: JSON.stringify(values),
       success: data => {
         alert(data.status);
-
+        location.reload();
       }
     });
   });
@@ -310,7 +317,7 @@ $(document).ready(function () {
       data: JSON.stringify(values),
       success: data => {
         alert(data.status);
-
+        location.reload();
       }
     });
   });
@@ -351,8 +358,8 @@ $(document).ready(function () {
         .find("[name=reviewerUserName]")
         .val()
     };
-    alert(values.seller);
-    alert(values.buyer);
+    // alert(values.seller);
+    // alert(values.buyer);
     // alert(values.title);
     $.ajax({
       url: apiServer + "/sellerReview/deleteReview",
@@ -520,6 +527,7 @@ $(document).ready(function () {
       }),
       success: data => {
         alert(data.status);
+        location.reload();
       }
     });
   });
@@ -612,6 +620,7 @@ $(document).ready(function () {
       }),
       success: data => {
         alert(data.status);
+        location.reload();
       }
     });
   });
