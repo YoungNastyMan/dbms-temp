@@ -40,7 +40,13 @@
 <% if(!user) { %>
   <form role="form" action="/books/get-reviews-for-buyer" method="post" style="max-width: 300px">
     <input type="hidden" name="bookTitle" value="<%= book.title %>" readonly/>
-    <button type="submit" >Read reviews</button>
+    <button type="submit" >Read Book reviews</button>
+    <br>
+    <br>
+  </form>
+  <form role="form" action="/books/get-seller-reviews" method="post" style="max-width: 300px">
+    <input type="hidden" name="bookTitle" value="<%= book.title %>" readonly/>
+    <button type="submit" >Read Book reviews</button>
     <br>
     <br>
   </form>
@@ -48,7 +54,7 @@
 
 <form role="form" action="/books/get-reviews-for-buyer" method="post" style="max-width: 300px">
   <input type="hidden" name="bookTitle" value="<%= book.title %>" readonly/>
-  <button type="submit">CRUD reviews</button>
+  <button type="submit">CRUD book reviews</button>
   <br>
   <br>
 </form>
@@ -57,7 +63,7 @@
 <form id = "addToCart">
   <input type="hidden" name="bookTitle" value="<%= book.title %>" readonly/>
   <input type="hidden" name="username" value="<%= user.username %>" readonly/> 
-  <button type="submit">Add To Cart</button>
+  <button type="submit">Add book To Cart</button>
 </form>
  <% } %>
 <%- include('footer') %>
