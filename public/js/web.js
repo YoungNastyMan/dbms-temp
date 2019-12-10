@@ -232,6 +232,41 @@ $(document).ready(function () {
     });
   });
 
+  $("#form1").on("submit", event => {
+    event.preventDefault();
+    var username = $(event.currentTarget).find("[name=username]").val();
+    // alert(username);
+    // // var inputs = $('#userDelete :input');
+    var user = {
+      user : {
+      username : $(event.currentTarget).find("[name=username]").val(),
+      first_name : $(event.currentTarget).find("[name=first_name]").val(),
+      last_name : $(event.currentTarget).find("[name=last_name]").val(),
+      password : $(event.currentTarget).find("[name=password]").val(),
+      address : {
+        address : $(event.currentTarget).find("[name=address]").val(),
+        pincode : $(event.currentTarget).find("[name=pincode]").val(),
+        city : $(event.currentTarget).find("[name=city]").val(),
+        state : $(event.currentTarget).find("[name=state]").val(),
+        country : $(event.currentTarget).find("[name=country]").val(),
+      }
+    }
+      
+    }
+
+    $.ajax({
+      url: apiServer + "/user/updateUser",
+      type: "PUT",
+      contentType: "application/json",
+      data: JSON.stringify(user),
+      success: data => {
+        alert(data.status);
+
+      }
+    });
+  });
+
+
   $("#bookDelete").on("submit", event => {
     event.preventDefault();
     // var inputs = $('#userDelete :input');
@@ -305,6 +340,32 @@ $(document).ready(function () {
     });
   });
 
+  $("#sellerReviewDelete").on("submit", event => {
+    event.preventDefault();
+    // var inputs = $('#userDelete :input');
+    var values = {
+      seller: $(event.currentTarget)
+        .find("[name=seller]")
+        .val(),
+      buyer: $(event.currentTarget)
+        .find("[name=reviewerUserName]")
+        .val()
+    };
+    alert(values.seller);
+    alert(values.buyer);
+    // alert(values.title);
+    $.ajax({
+      url: apiServer + "/sellerReview/deleteReview",
+      type: "DELETE",
+      contentType: "application/json",
+      data: JSON.stringify(values),
+      success: data => {
+        alert(data.status);
+        location.reload();
+      }
+    });
+  });
+
   $("#reviewAdd").on("submit", event => {
     event.preventDefault();
     // var inputs = $('#userDelete :input');
@@ -360,6 +421,34 @@ $(document).ready(function () {
       }
     });
   });
+
+  $("#sellerReviewAdd").on("submit", event => {
+    event.preventDefault();
+    // var inputs = $('#userDelete :input');
+    var values = {
+      seller: $(event.currentTarget)
+        .find("[name=seller]")
+        .val(),
+      buyer: $(event.currentTarget)
+        .find("[name=reviewer]")
+        .val(),
+      review: $(event.currentTarget)
+        .find("[name=reviewSelection]")
+        .val()
+    };
+    // alert(values.title);
+    $.ajax({
+      url: apiServer + "/sellerReview/addReview",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(values),
+      success: data => {
+        alert(data.status);
+        location.reload();
+      }
+    });
+  });
+
 
   $("#bookUpdateBySeller").on("submit", event => {
     event.preventDefault();

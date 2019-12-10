@@ -2,7 +2,7 @@
 <%- include('logout'); -%>
 <div class="container">
     <h1>Update Profile</h1>
-    <form role="form" action="/users/updateUser" method="post" style="max-width: 300px">
+    <form id = "form1">
         
         <div class="form-group">
             <input class="form-control" value = "<%= user.first_name %>" type="text" name="first_name" placeholder="Enter First Name" />
@@ -35,9 +35,3 @@
     </form>
 </div>
 <%- include('footer'); -%>
-
-<script>
-function myFunction() {
-  alert("Profile Succesfully Updated");
-}
-</script>

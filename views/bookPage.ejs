@@ -46,7 +46,7 @@
   </form>
   <form role="form" action="/books/get-seller-reviews" method="post" style="max-width: 300px">
     <input type="hidden" name="bookTitle" value="<%= book.title %>" readonly/>
-    <button type="submit" >Read Book reviews</button>
+    <button type="submit" >Read Seller reviews</button>
     <br>
     <br>
   </form>
@@ -54,10 +54,17 @@
 
 <form role="form" action="/books/get-reviews-for-buyer" method="post" style="max-width: 300px">
   <input type="hidden" name="bookTitle" value="<%= book.title %>" readonly/>
-  <button type="submit">CRUD book reviews</button>
+  <button type="submit">CRUD Book reviews</button>
   <br>
   <br>
 </form>
+<form role="form" action="/books/get-seller-reviews" method="post" style="max-width: 300px">
+  <input type="hidden" name="bookTitle" value="<%= book.title %>" readonly/>
+  <button type="submit">CRUD Seller reviews</button>
+  <br>
+  <br>
+</form>
+
 <% } %>
 <% if(user) { %>
 <form id = "addToCart">

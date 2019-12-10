@@ -68,7 +68,8 @@ app.use((req, res, next) => {
     '/login',
     '/register',
     '/books',
-    '/books/get-reviews-for-buyer'
+    '/books/get-reviews-for-buyer',
+    '/books/get-seller-reviews'
   ];
   if (!req.user && !allowedUnauthenticatedRoutes.includes(req.path)) {
     next(createError(401));

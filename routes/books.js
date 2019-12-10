@@ -86,6 +86,33 @@ router.post('/get-reviews-for-buyer', async(req, res) => {
     res.render('bookReviews', {reviews: reviewsArray, user: req.user, book: bookRes.data[0]});
 });
 
+router.post('/get-seller-reviews', async(req, res) => {
+    var reviewsArray = [];
+    var cursor;
+    let bookRes;
+    var userRes;
+    var sellerId;
+    
+    try {
+    //console.log("Button press = " + req.body.bookTitle);
+    bookRes = await axios.get('http://localhost:5000/book/booksByTitle?q='+ req.body.bookTitle);
+    console.log("Seller id=" + bookRes.data[0].seller);
+    userRes = await axios.get('http://localhost:5000/user/id?q=' + bookRes.data[0].seller);
+    console.log(userRes.data[0]);
+    console.log("Seller username=" + userRes.data[0].username);
+    let revRes = await axios.get('http://localhost:5000/sellerReview/findReviewBySeller?q=' + userRes.data[0].username);
+        cursor = revRes.data;
+        cursor.forEach(function (doc, err) {
+          //console.log(doc.title);
+            reviewsArray.push(doc);
+        })
+    }
+    catch(e) {
+        console.log(e); 
+    }
+    res.render('crudSellerReviewsByBuyer', {reviews: reviewsArray, user: req.user, seller: userRes.data[0]});
+});
+
 
 /*
 router.post('/register', (req, res) => {

@@ -117,6 +117,11 @@ router.get('/bookReviews', (req, res) =>
   res.render('bookReviews', {reviews: [], user: req.user, book: []})
 );
 
+//CRUD reviews by User page
+router.get('/crudSellerReviewsByBuyer', (req, res) =>
+  res.render('crudSellerReviewsByBuyer', {reviews: [], user: req.user, seller: []})
+);
+
 //Update/ Edit Users page
 router.get('/update-edit-buyer-seller', (req, res) =>
   res.render('updateEditBuyerSeller')
